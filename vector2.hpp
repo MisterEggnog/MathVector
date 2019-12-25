@@ -34,8 +34,35 @@ struct Vector2 {
 	Vector2(const Vector2&) noexcept = default;
 	Vector2(Vector2&&) noexcept = default;
 	~Vector2() = default;
-	Vector2& operator=(const Vector2&) = default;
-	Vector2& operator=(Vector2&&) = default;
+	Vector2& operator=(const Vector2&) noexcept = default;
+	Vector2& operator=(Vector2&&) noexcept = default;
+
+	Vector2<T>& operator*=(T value)
+	{
+		this->x *= value.x;
+		this->y *= value.y;
+		return *this;
+	}
+
+	friend Vector2<T> operator*(Vector2<T> lhs, const Vector2<T>& rhs)
+	{
+		return lhs *= rhs;
+	}
+
+	T dot_product(const Vector2<T>& rhs)
+	{
+		return this->x * rhs.x + this->y * rhs.y;
+	}
+
+	T magnitude(T(cos*)(T))
+	{
+		return cos(this->dot_product(*this));
+	}
+
+	vector2<T> unit_vector(T(cos*)(T))
+	{
+		return (*this) * (1 / this->magnitude(cos));
+	}
 };
 
 }
