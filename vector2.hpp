@@ -37,16 +37,17 @@ struct Vector2 {
 	Vector2& operator=(const Vector2&) noexcept = default;
 	Vector2& operator=(Vector2&&) noexcept = default;
 
-	Vector2<T>& operator*=(T value)
+	Vector2(const T& x, const T& y) noexcept
 	{
-		this->x *= value.x;
-		this->y *= value.y;
-		return *this;
+		this->x = x;
+		this->y = y;
 	}
 
-	friend Vector2<T> operator*(Vector2<T> lhs, const Vector2<T>& rhs)
+	Vector2<T>& operator*=(T value)
 	{
-		return lhs *= rhs;
+		this->x *= value;
+		this->y *= value;
+		return *this;
 	}
 
 	T dot_product(const Vector2<T>& rhs)
@@ -54,16 +55,29 @@ struct Vector2 {
 		return this->x * rhs.x + this->y * rhs.y;
 	}
 
-	T magnitude(T(cos*)(T))
+	T magnitude(T(*magnitude)(T))
 	{
-		return cos(this->dot_product(*this));
+		return magnitude(this->dot_product(*this));
 	}
 
-	vector2<T> unit_vector(T(cos*)(T))
+	Vector2<T> unit_vector(T(*magnitude)(T))
 	{
-		return (*this) * (1 / this->magnitude(cos));
+		return (*this) * ((T)1 / this->magnitude(magnitude));
 	}
 };
+
+template <class T>
+Vector2<T> operator*(Vector2<T> lhs, const T& rhs)
+{
+	return lhs *= rhs;
+}
+
+template <class T>
+Vector2<T> operator*(const T& lhs, Vector2<T> rhs)
+{
+	return rhs *= lhs;
+}
+
 
 }
 

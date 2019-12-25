@@ -1,9 +1,84 @@
 
 #include "vector2.hpp"
 #include <cstdio>
+#include <limits>
+#include <random>
+
+
+#define TEST_NUMBER 1
+#define STRING_LENGTH 9
+#define STRINGIFY(x) #x
+#define TO_STRING(x) STRINGIFY(x)
+
+using Vector2 = MisterEggnog::Vector2<int>;
+typedef bool(*testfun)();
+
+std::mt19937 random_eng;
+std::uniform_int_distribution number_range(std::numeric_limits<short>::min(), std::numeric_limits<short>::max());
+
+bool multi2_op()
+{
+	// vec *= scalar
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		Vector2 vc{x, y};
+		x  *= z;
+		y  *= z;
+		vc *= z;
+		if (vc.x != x && vc.y != y)
+			return false;
+	}
+
+	// scalar * vec
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		Vector2 vc{x, y};
+		x  *= z;
+		y  *= z;
+		Vector2 vc2 = vc * z;
+		if (vc2.x != x && vc2.y != y)
+			return false;
+	}
+
+	// vec * scalar
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		Vector2 vc{x, y};
+		x  *= z;
+		y  *= z;
+		Vector2 vc2 = z * vc;
+		if (vc2.x != x && vc2.y != y)
+			return false;
+	}
+
+	return true;
+}
 
 int main()
 {
+	char test_str[TEST_NUMBER][STRING_LENGTH] = {
+		"2vc * op"
+	};
+	testfun func[TEST_NUMBER] = {
+		multi2_op
+	};
+
+	int success_count = 0;
+	for (int i = 0; i < TEST_NUMBER; i++) {
+		bool test_result = func[i]();
+		if (test_result) success_count++;
+		std::printf("Test%" TO_STRING(STRING_LENGTH) "s: %s\n", test_str[i], (test_result) ? "passed" : "failed");
+	}
+	{
+		double percent_passed = (double)success_count / (double)TEST_NUMBER * 100.0;
+		std::printf("%i of %i passed, %f%%\n", success_count, TEST_NUMBER, percent_passed);
+	}
 }
 
 /*
