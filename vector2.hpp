@@ -24,18 +24,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <type_traits>
+
 namespace MisterEggnog {
 
 template <class T>
 struct Vector2 {
 	T x, y;
 
-	Vector2() noexcept = default;
-	Vector2(const Vector2&) noexcept = default;
-	Vector2(Vector2&&) noexcept = default;
+	Vector2() noexcept(std::is_nothrow_default_constructible<T>()) = default;
+	Vector2(const Vector2&) noexcept(std::is_nothrow_copy_constructible<T>()) = default;
+	Vector2(Vector2&&) noexcept(std::is_nothrow_move_constructible<T>()) = default;
 	~Vector2() = default;
-	Vector2& operator=(const Vector2&) noexcept = default;
-	Vector2& operator=(Vector2&&) noexcept = default;
+	Vector2& operator=(const Vector2&) noexcept(std::is_nothrow_copy_assignable<T>()) = default;
+	Vector2& operator=(Vector2&&) noexcept(std::is_nothrow_move_assignable<T>()) = default;
 
 	Vector2(const T& x, const T& y) noexcept
 	{

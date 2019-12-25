@@ -5,8 +5,8 @@
 #include <random>
 
 
-#define TEST_NUMBER 1
-#define STRING_LENGTH 9
+#define TEST_NUMBER 2
+#define STRING_LENGTH 13
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
 
@@ -60,13 +60,32 @@ bool multi2_op()
 	return true;
 }
 
+bool noexcept_vc2()
+{
+	struct throwable {
+		throwable();
+		throwable(const throwable&);
+		throwable(throwable&&);
+		throwable& operator=(const throwable&);
+		throwable& operator=(throwable&&);
+	};
+
+	return !std::is_nothrow_default_constructible<MisterEggnog::Vector2<throwable>>()
+		&& !std::is_nothrow_copy_constructible<MisterEggnog::Vector2<throwable>>()
+		&& !std::is_nothrow_move_constructible<MisterEggnog::Vector2<throwable>>()
+		&& !std::is_nothrow_copy_assignable<MisterEggnog::Vector2<throwable>>()
+		&& !std::is_nothrow_move_assignable<MisterEggnog::Vector2<throwable>>();
+}
+
 int main()
 {
 	char test_str[TEST_NUMBER][STRING_LENGTH] = {
-		"2vc * op"
+		"vc2 * op",
+		"vc2 noexcept" 
 	};
 	testfun func[TEST_NUMBER] = {
-		multi2_op
+		multi2_op,
+		noexcept_vc2
 	};
 
 	int success_count = 0;
