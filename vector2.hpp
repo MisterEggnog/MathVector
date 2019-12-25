@@ -43,6 +43,20 @@ struct Vector2 {
 		this->y = y;
 	}
 
+	Vector2<T>& operator+=(const Vector2<T>& rhs)
+	{
+		this->x += rhs.x;
+		this->y += rhs.y;
+		return *this;
+	}
+
+	Vector2<T>& operator-=(const Vector2<T>& rhs)
+	{
+		this->x -= rhs.x;
+		this->y -= rhs.y;
+		return *this;
+	}
+
 	Vector2<T>& operator*=(T value)
 	{
 		this->x *= value;
@@ -65,6 +79,30 @@ struct Vector2 {
 		return (*this) * ((T)1 / this->magnitude(magnitude));
 	}
 };
+
+template <class T>
+bool operator==(const Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+	return lhs.x == rhs.x && lhs.y == rhs.y;
+}
+
+template <class T>
+bool operator!=(const Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+	return !(lhs == rhs);
+}
+
+template <class T>
+Vector2<T> operator+(Vector2<T> lhs, const Vector2<T>& rhs)
+{
+	return lhs += rhs;
+}
+
+template <class T>
+Vector2<T> operator-(Vector2<T> lhs, const Vector2<T>& rhs)
+{
+	return lhs -= rhs;
+}
 
 template <class T>
 Vector2<T> operator*(Vector2<T> lhs, const T& rhs)
