@@ -141,8 +141,16 @@ bool noexcept_vc2()
 		&& !std::is_nothrow_move_assignable<MisterEggnog::Vector2<throwable>>();
 }
 
-#define TEST_NUMBER 4
-#define STRING_LENGTH 13
+bool comparision_vc2()
+{
+	Vector2 vc1(number_range(random_eng), number_range(random_eng));
+	Vector2 vc2(number_range(random_eng), number_range(random_eng));
+	Vector2 vc3(vc1);
+	return vc1 != vc2 && vc1 == vc3;
+}
+
+#define TEST_NUMBER 5
+#define STRING_LENGTH 16
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
 
@@ -152,13 +160,15 @@ int main()
 		"vc2 + op",
 		"vc2 - op",
 		"vc2 * op",
-		"vc2 noexcept" 
+		"vc2 noexcept",
+		"vc2 comparision"
 	};
 	testfun func[TEST_NUMBER] = {
 		add2_op,
 		minus2_op,
 		multi2_op,
-		noexcept_vc2
+		noexcept_vc2,
+		comparision_vc2
 	};
 
 	int success_count = 0;
