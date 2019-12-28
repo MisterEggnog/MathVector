@@ -1,14 +1,17 @@
 
 #include "vector2.hpp"
 #include <cstdio>
+#include <cmath>
 #include <limits>
 #include <random>
 
 using Vector2 = MisterEggnog::Vector2<int>;
+using Vector2f = MisterEggnog::Vector2<double>;
 typedef bool(*testfun)();
 
 std::mt19937 random_eng;
 std::uniform_int_distribution number_range(std::numeric_limits<short>::min(), std::numeric_limits<short>::max());
+std::uniform_real_distribution float_number_range(std::numeric_limits<float>::min(), std::numeric_limits<float>::max());
 
 bool add2_op()
 {
@@ -151,17 +154,28 @@ bool comparision_vc2()
 
 bool vc2_dot_product()
 {
-	int w = number_range(random_eng);
 	int x = number_range(random_eng);
 	int y = number_range(random_eng);
 	int z = number_range(random_eng);
+	int w = number_range(random_eng);
 	Vector2 vc1{w, x};
 	Vector2 vc2{y, z};
 	int dot_product = w*y + x*z;
+
 	return dot_product == vc1.dot_product(vc2);
 }
 
-#define TEST_NUMBER 6
+bool vc2_magnitude()
+{
+	double x = float_number_range(random_eng);
+	double y = float_number_range(random_eng);
+	Vector2f vec{x, y};
+	double magnitude = std::sqrt(x*x + y*y);
+
+	return magnitude == vec.magnitude(std::sqrt);
+}
+
+#define TEST_NUMBER 7
 #define STRING_LENGTH 16
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -174,7 +188,8 @@ int main()
 		"vc2 * op",
 		"vc2 noexcept",
 		"vc2 comparision",
-		"vc2 dot product"
+		"vc2 dot product",
+		"vc2 magnitude"
 	};
 	testfun func[TEST_NUMBER] = {
 		add2_op,
@@ -182,7 +197,8 @@ int main()
 		multi2_op,
 		noexcept_vc2,
 		comparision_vc2,
-		vc2_dot_product
+		vc2_dot_product,
+		vc2_magnitude
 	};
 
 	int success_count = 0;
