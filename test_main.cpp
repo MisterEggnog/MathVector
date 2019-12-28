@@ -4,17 +4,81 @@
 #include <limits>
 #include <random>
 
-
-#define TEST_NUMBER 2
-#define STRING_LENGTH 13
-#define STRINGIFY(x) #x
-#define TO_STRING(x) STRINGIFY(x)
-
 using Vector2 = MisterEggnog::Vector2<int>;
 typedef bool(*testfun)();
 
 std::mt19937 random_eng;
 std::uniform_int_distribution number_range(std::numeric_limits<short>::min(), std::numeric_limits<short>::max());
+
+bool add2_op()
+{
+	// vec +=
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int w = number_range(random_eng);
+		Vector2 vc1{x, y};
+		Vector2 vc2{z, w};
+		x   += z;
+		y   += w;
+		vc1 += vc2;
+		if (vc1.x != x && vc1.y != y)
+			return false;
+	}
+
+	// vec + vec
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int w = number_range(random_eng);
+		Vector2 vc1{x, y};
+		Vector2 vc2{x, y};
+		Vector2 vc3(vc1 + vc2);
+		x += z;
+		y += w;
+		if (vc3.x != x && vc3.y == y)
+			return false;
+	}
+
+	return true;
+}
+
+bool minus2_op()
+{
+	// vec +=
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int w = number_range(random_eng);
+		Vector2 vc1{x, y};
+		Vector2 vc2{z, w};
+		x   -= z;
+		y   -= w;
+		vc1 -= vc2;
+		if (vc1.x != x && vc1.y != y)
+			return false;
+	}
+
+	// vec + vec
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int w = number_range(random_eng);
+		Vector2 vc1{x, y};
+		Vector2 vc2{x, y};
+		Vector2 vc3(vc1 - vc2);
+		x -= z;
+		y -= w;
+		if (vc3.x != x && vc3.y == y)
+			return false;
+	}
+
+	return true;
+}
 
 bool multi2_op()
 {
@@ -77,13 +141,22 @@ bool noexcept_vc2()
 		&& !std::is_nothrow_move_assignable<MisterEggnog::Vector2<throwable>>();
 }
 
+#define TEST_NUMBER 4
+#define STRING_LENGTH 13
+#define STRINGIFY(x) #x
+#define TO_STRING(x) STRINGIFY(x)
+
 int main()
 {
 	char test_str[TEST_NUMBER][STRING_LENGTH] = {
+		"vc2 + op",
+		"vc2 - op",
 		"vc2 * op",
 		"vc2 noexcept" 
 	};
 	testfun func[TEST_NUMBER] = {
+		add2_op,
+		minus2_op,
 		multi2_op,
 		noexcept_vc2
 	};
