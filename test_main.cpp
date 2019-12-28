@@ -149,7 +149,19 @@ bool comparision_vc2()
 	return vc1 != vc2 && vc1 == vc3;
 }
 
-#define TEST_NUMBER 5
+bool vc2_dot_product()
+{
+	int w = number_range(random_eng);
+	int x = number_range(random_eng);
+	int y = number_range(random_eng);
+	int z = number_range(random_eng);
+	Vector2 vc1{w, x};
+	Vector2 vc2{y, z};
+	int dot_product = w*y + x*z;
+	return dot_product == vc1.dot_product(vc2);
+}
+
+#define TEST_NUMBER 6
 #define STRING_LENGTH 16
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -161,14 +173,16 @@ int main()
 		"vc2 - op",
 		"vc2 * op",
 		"vc2 noexcept",
-		"vc2 comparision"
+		"vc2 comparision",
+		"vc2 dot product"
 	};
 	testfun func[TEST_NUMBER] = {
 		add2_op,
 		minus2_op,
 		multi2_op,
 		noexcept_vc2,
-		comparision_vc2
+		comparision_vc2,
+		vc2_dot_product
 	};
 
 	int success_count = 0;
