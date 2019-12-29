@@ -32,88 +32,88 @@ template <class T>
 struct Vector2 {
 	T x, y;
 
-	Vector2() noexcept(std::is_nothrow_default_constructible<T>()) = default;
-	Vector2(const Vector2&) noexcept(std::is_nothrow_copy_constructible<T>()) = default;
-	Vector2(Vector2&&) noexcept(std::is_nothrow_move_constructible<T>()) = default;
+	constexpr Vector2() noexcept(std::is_nothrow_default_constructible<T>()) = default;
+	constexpr Vector2(const Vector2&) noexcept(std::is_nothrow_copy_constructible<T>()) = default;
+	constexpr Vector2(Vector2&&) noexcept(std::is_nothrow_move_constructible<T>()) = default;
 	~Vector2() = default;
-	Vector2& operator=(const Vector2&) noexcept(std::is_nothrow_copy_assignable<T>()) = default;
-	Vector2& operator=(Vector2&&) noexcept(std::is_nothrow_move_assignable<T>()) = default;
+	constexpr Vector2& operator=(const Vector2&) noexcept(std::is_nothrow_copy_assignable<T>()) = default;
+	constexpr Vector2& operator=(Vector2&&) noexcept(std::is_nothrow_move_assignable<T>()) = default;
 
-	Vector2(const T& x, const T& y) noexcept
+	constexpr Vector2(const T& x, const T& y) noexcept
 	{
 		this->x = x;
 		this->y = y;
 	}
 
-	Vector2<T>& operator+=(const Vector2<T>& rhs)
+	constexpr Vector2<T>& operator+=(const Vector2<T>& rhs)
 	{
 		this->x += rhs.x;
 		this->y += rhs.y;
 		return *this;
 	}
 
-	Vector2<T>& operator-=(const Vector2<T>& rhs)
+	constexpr Vector2<T>& operator-=(const Vector2<T>& rhs)
 	{
 		this->x -= rhs.x;
 		this->y -= rhs.y;
 		return *this;
 	}
 
-	Vector2<T>& operator*=(T value)
+	constexpr Vector2<T>& operator*=(T value)
 	{
 		this->x *= value;
 		this->y *= value;
 		return *this;
 	}
 
-	T dot_product(const Vector2<T>& rhs)
+	constexpr T dot_product(const Vector2<T>& rhs)
 	{
 		return this->x * rhs.x + this->y * rhs.y;
 	}
 
-	T magnitude(T(*magnitude)(T))
+	constexpr T magnitude(T(*magnitude)(T))
 	{
 		return magnitude(this->dot_product(*this));
 	}
 
-	Vector2<T> unit_vector(T(*magnitude)(T))
+	constexpr Vector2<T> unit_vector(T(*magnitude)(T))
 	{
 		return (*this) * ((T)1 / this->magnitude(magnitude));
 	}
 };
 
 template <class T>
-bool operator==(const Vector2<T>& lhs, const Vector2<T>& rhs)
+constexpr bool operator==(const Vector2<T>& lhs, const Vector2<T>& rhs)
 {
 	return lhs.x == rhs.x && lhs.y == rhs.y;
 }
 
 template <class T>
-bool operator!=(const Vector2<T>& lhs, const Vector2<T>& rhs)
+constexpr bool operator!=(const Vector2<T>& lhs, const Vector2<T>& rhs)
 {
 	return !(lhs == rhs);
 }
 
 template <class T>
-Vector2<T> operator+(Vector2<T> lhs, const Vector2<T>& rhs)
+constexpr Vector2<T> operator+(Vector2<T> lhs, const Vector2<T>& rhs)
 {
 	return lhs += rhs;
 }
 
 template <class T>
-Vector2<T> operator-(Vector2<T> lhs, const Vector2<T>& rhs)
+constexpr Vector2<T> operator-(Vector2<T> lhs, const Vector2<T>& rhs)
 {
 	return lhs -= rhs;
 }
 
 template <class T>
-Vector2<T> operator*(Vector2<T> lhs, const T& rhs)
+constexpr Vector2<T> operator*(Vector2<T> lhs, const T& rhs)
 {
 	return lhs *= rhs;
 }
 
 template <class T>
-Vector2<T> operator*(const T& lhs, Vector2<T> rhs)
+constexpr Vector2<T> operator*(const T& lhs, Vector2<T> rhs)
 {
 	return rhs *= lhs;
 }
