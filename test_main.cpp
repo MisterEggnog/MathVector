@@ -175,7 +175,21 @@ bool vc2_magnitude()
 	return magnitude == vec.magnitude(std::sqrt);
 }
 
-#define TEST_NUMBER 7
+bool vc2_unit_vector()
+{
+	double a = float_number_range(random_eng);
+	double b = float_number_range(random_eng);
+	double c = std::sqrt(a*a + b*b);
+	Vector2f vec{a, b};
+
+	a /= c;
+	b /= c;
+	auto vec2 = vec.unit_vector(std::sqrt);
+
+	return vec2.x == a && vec2.y == b;
+}
+
+#define TEST_NUMBER 8
 #define STRING_LENGTH 16
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -189,7 +203,8 @@ int main()
 		"vc2 noexcept",
 		"vc2 comparision",
 		"vc2 dot product",
-		"vc2 magnitude"
+		"vc2 magnitude",
+		"vc2 unit vector"
 	};
 	testfun func[TEST_NUMBER] = {
 		add2_op,
@@ -198,7 +213,8 @@ int main()
 		noexcept_vc2,
 		comparision_vc2,
 		vc2_dot_product,
-		vc2_magnitude
+		vc2_magnitude,
+		vc2_unit_vector
 	};
 
 	int success_count = 0;
