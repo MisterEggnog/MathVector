@@ -24,6 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <cmath>
 #include <type_traits>
 
 namespace MisterEggnog {
@@ -76,11 +77,32 @@ struct Vector2 {
 		return magnitude(this->dot_product(*this));
 	}
 
+	// Template specialization of magnitude fn.
+	auto magnitude();
+
 	constexpr Vector2<T> unit_vector(T(*magnitude)(T))
 	{
 		return (*this) * ((T)1 / this->magnitude(magnitude));
 	}
 };
+
+template <>
+auto Vector2<double>::magnitude()
+{
+	return std::hypot(x, y);
+}
+
+template <>
+auto Vector2<float>::magnitude()
+{
+	return std::hypotf(x, y);
+}
+
+template <>
+auto Vector2<long double>::magnitude()
+{
+	return std::hypotl(x, y);
+}
 
 template <class T>
 constexpr bool operator==(const Vector2<T>& lhs, const Vector2<T>& rhs)
