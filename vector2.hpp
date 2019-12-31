@@ -80,6 +80,14 @@ struct Vector2 {
 	// Template specialization of magnitude fn.
 	auto magnitude();
 
+	// Specialization of unit_vector fn.
+	Vector2<T> unit_vector()
+	{
+		auto unit_vc(*this);
+		unit_vc *= 1.f / this->magnitude();
+		return unit_vc;
+	}
+
 	constexpr Vector2<T> unit_vector(T(*magnitude)(T))
 	{
 		return (*this) * ((T)1 / this->magnitude(magnitude));
