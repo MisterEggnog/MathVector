@@ -87,19 +87,19 @@ struct Vector2 {
 };
 
 template <>
-auto Vector2<double>::magnitude()
+inline auto Vector2<double>::magnitude()
 {
 	return std::hypot(x, y);
 }
 
 template <>
-auto Vector2<float>::magnitude()
+inline auto Vector2<float>::magnitude()
 {
 	return std::hypotf(x, y);
 }
 
 template <>
-auto Vector2<long double>::magnitude()
+inline auto Vector2<long double>::magnitude()
 {
 	return std::hypotl(x, y);
 }
