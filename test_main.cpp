@@ -189,8 +189,53 @@ bool vc2_unit_vector()
 	return vec2.x == a && vec2.y == b;
 }
 
-#define TEST_NUMBER 8
-#define STRING_LENGTH 16
+bool special_implmentation()
+{
+	// Tests float
+	{
+		std::uniform_real_distribution<float> roll_float(-10.f, 10.f);
+		float a = roll_float(random_eng);
+		float b = roll_float(random_eng);
+		auto vecf = MisterEggnog::Vector2(a, b);
+
+		float c = std::hypotf(a, b);
+		float vec_magnitude = vecf.magnitude();
+
+		if (c != vec_magnitude)
+			return false;
+	}
+
+	// Tests double
+	{
+		double a = float_number_range(random_eng);
+		double b = float_number_range(random_eng);
+		auto vecf = MisterEggnog::Vector2(a, b);
+
+		double c = std::hypot(a, b);
+		double vec_magnitude = vecf.magnitude();
+
+		if (c != vec_magnitude)
+			return false;
+	}
+
+	// Tests double
+	{
+		long double a = float_number_range(random_eng);
+		long double b = float_number_range(random_eng);
+		auto vecf = MisterEggnog::Vector2(a, b);
+
+		long double c = std::hypotl(a, b);
+		long double vec_magnitude = vecf.magnitude();
+
+		if (c != vec_magnitude)
+			return false;
+	}
+
+	return true;
+}
+
+#define TEST_NUMBER 9
+#define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
 
@@ -204,7 +249,8 @@ int main()
 		"vc2 comparision",
 		"vc2 dot product",
 		"vc2 magnitude",
-		"vc2 unit vector"
+		"vc2 unit vector",
+		"vc2 special impl"
 	};
 	testfun func[TEST_NUMBER] = {
 		add2_op,
@@ -214,7 +260,8 @@ int main()
 		comparision_vc2,
 		vc2_dot_product,
 		vc2_magnitude,
-		vc2_unit_vector
+		vc2_unit_vector,
+		special_implmentation
 	};
 
 	int success_count = 0;
