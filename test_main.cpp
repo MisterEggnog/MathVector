@@ -201,7 +201,13 @@ bool special_implmentation()
 		float c = std::hypotf(a, b);
 		float vec_magnitude = vecf.magnitude();
 
-		if (c != vec_magnitude)
+		auto a_unit = a / c;
+		auto b_unit = b / c;
+		auto unit_vecf = vecf.unit_vector();
+
+		if (c != vec_magnitude
+			&& a_unit == unit_vecf.x
+			&& b_unit == unit_vecf.y)
 			return false;
 	}
 
@@ -214,7 +220,13 @@ bool special_implmentation()
 		double c = std::hypot(a, b);
 		double vec_magnitude = vecf.magnitude();
 
-		if (c != vec_magnitude)
+		auto a_unit = a / c;
+		auto b_unit = b / c;
+		auto unit_vecf = vecf.unit_vector();
+
+		if (c != vec_magnitude
+			&& a_unit == unit_vecf.x
+			&& b_unit == unit_vecf.y)
 			return false;
 	}
 
@@ -227,7 +239,13 @@ bool special_implmentation()
 		long double c = std::hypotl(a, b);
 		long double vec_magnitude = vecf.magnitude();
 
-		if (c != vec_magnitude)
+		auto a_unit = a / c;
+		auto b_unit = b / c;
+		auto unit_vecf = vecf.unit_vector();
+
+		if (c != vec_magnitude
+			&& a_unit == unit_vecf.x
+			&& b_unit == unit_vecf.y)
 			return false;
 	}
 
