@@ -77,10 +77,16 @@ struct Vector2 {
 		return magnitude(this->dot_product(*this));
 	}
 
-	// Template specialization of magnitude fn.
+	/*
+	* Magnitude function using the hypot function.
+	* Currently only exists for float, double, & long double.
+	*/
 	auto magnitude();
 
-	// Specialization of unit_vector fn.
+	/*
+	* Unit vector function using the hypot function.
+	* Currently only exists for float, double, & long double.
+	*/
 	Vector2<T> unit_vector()
 	{
 		auto unit_vc(*this);
