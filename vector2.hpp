@@ -67,12 +67,12 @@ struct Vector2 {
 		return *this;
 	}
 
-	constexpr T dot_product(const Vector2<T>& rhs)
+	constexpr T dot_product(const Vector2<T>& rhs) const
 	{
 		return this->x * rhs.x + this->y * rhs.y;
 	}
 
-	constexpr T magnitude(T(*magnitude)(T))
+	constexpr T magnitude(T(*magnitude)(T)) const
 	{
 		return magnitude(this->dot_product(*this));
 	}
@@ -81,39 +81,39 @@ struct Vector2 {
 	* Magnitude function using the hypot function.
 	* Currently only exists for float, double, & long double.
 	*/
-	auto magnitude();
+	auto magnitude() const;
 
 	/*
 	* Unit vector function using the hypot function.
 	* Currently only exists for float, double, & long double.
 	*/
-	Vector2<T> unit_vector()
+	Vector2<T> unit_vector() const
 	{
 		auto unit_vc(*this);
 		unit_vc *= 1.f / this->magnitude();
 		return unit_vc;
 	}
 
-	constexpr Vector2<T> unit_vector(T(*magnitude)(T))
+	constexpr Vector2<T> unit_vector(T(*magnitude)(T)) const
 	{
 		return (*this) * ((T)1 / this->magnitude(magnitude));
 	}
 };
 
 template <>
-inline auto Vector2<double>::magnitude()
+inline auto Vector2<double>::magnitude() const
 {
 	return std::hypot(x, y);
 }
 
 template <>
-inline auto Vector2<float>::magnitude()
+inline auto Vector2<float>::magnitude() const
 {
 	return std::hypotf(x, y);
 }
 
 template <>
-inline auto Vector2<long double>::magnitude()
+inline auto Vector2<long double>::magnitude() const
 {
 	return std::hypotl(x, y);
 }
