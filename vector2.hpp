@@ -98,6 +98,11 @@ struct Vector2 {
 	{
 		return (*this) * ((T)1 / this->magnitude(magnitude));
 	}
+
+	T cosine_between(const Vector2<T>& b, T(*magnitude)(T)) const {
+		return dot_product(b, magnitude) / (this->magnitude(magnitude) * b.magnitude(magnitude));
+	}
+
 };
 
 template <>
