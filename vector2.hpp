@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2019 Josiah Baldwin
+Copyright (c) 2020 Josiah Baldwin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -107,7 +107,9 @@ struct Vector2 {
 
 	constexpr Vector2<T> unit_vector(T(*magnitude)(T)) const
 	{
-		return (*this) * ((T)1 / this->magnitude(magnitude));
+		auto unit_vc(*this);
+		unit_vc *= 1 / this->magnitude(magnitude);
+		return unit_vc;
 	}
 
 };
@@ -164,6 +166,15 @@ template <class T>
 constexpr Vector2<T> operator*(const T& lhs, Vector2<T> rhs)
 {
 	return rhs *= lhs;
+}
+
+// This is so that Vector2 doesn't feel left out with regards to the
+// quaternion & octonion multiplication.
+template <class T>
+constexpr Vector2<T> complex_multiplication(const Vector2<T>& lhs, const Vector2<T>& rhs)
+{
+	return Vector2(lhs.x * rhs.x - lhs.y * rhs.y,
+			lhs.x * rhs.y + rhs.x * lhs.y);
 }
 
 

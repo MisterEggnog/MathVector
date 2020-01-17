@@ -1,4 +1,26 @@
+/*
+MIT License
 
+Copyright (c) 2020 Josiah Baldwin
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 #include "vector2.hpp"
 #include "vector.hpp"
 #include <cstdio>
@@ -12,7 +34,7 @@ typedef bool(*testfun)();
 
 std::mt19937 random_eng;
 std::uniform_int_distribution number_range(std::numeric_limits<short>::min(), std::numeric_limits<short>::max());
-std::uniform_real_distribution float_number_range(std::numeric_limits<float>::min(), std::numeric_limits<float>::max());
+std::uniform_real_distribution float_number_range(-20.0, 20.0);
 
 bool add2_op()
 {
@@ -181,10 +203,10 @@ bool vc2_unit_vector()
 	double a = float_number_range(random_eng);
 	double b = float_number_range(random_eng);
 	double c = std::sqrt(a*a + b*b);
-	Vector2f vec{a, b};
+	auto vec = MisterEggnog::Vector2(a, b);
 
-	a /= c;
-	b /= c;
+	a *= 1 / c;
+	b *= 1 / c;
 	auto vec2 = vec.unit_vector(std::sqrt);
 
 	return vec2.x == a && vec2.y == b;
@@ -264,7 +286,24 @@ bool vc2_neg_pos_op()
 		&& vec == +vec;
 }
 
-#define TEST_NUMBER 10
+bool vc2_complex_multiplication()
+{
+	int a = number_range(random_eng);
+	int b = number_range(random_eng);
+	int c = number_range(random_eng);
+	int d = number_range(random_eng);
+
+	auto vc1 = MisterEggnog::Vector2(a, b);
+	auto vc2 = MisterEggnog::Vector2(c, d);
+
+	auto e = a*c - b*d;
+	auto f = a*d + c*b;
+	auto vc3 = MisterEggnog::complex_multiplication(vc1, vc2);
+
+	return vc3.x == e && vc3.y == f;
+}
+
+#define TEST_NUMBER 11
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -282,6 +321,7 @@ int main()
 		"vc2 unit vector",
 		"vc2 special impl",
 		"vc2 pos/neg op",
+		"vc2 complex *",
 	};
 	testfun func[TEST_NUMBER] = {
 		add2_op,
@@ -294,6 +334,7 @@ int main()
 		vc2_unit_vector,
 		vc2_special_implmentation,
 		vc2_neg_pos_op,
+		vc2_complex_multiplication,
 	};
 
 	int success_count = 0;
@@ -307,52 +348,3 @@ int main()
 		std::printf("%i of %i passed, %f%%\n", success_count, TEST_NUMBER, percent_passed);
 	}
 }
-
-/*
-MIT License
-
-Copyright (c) 2019 Josiah Baldwin
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-
-/*
-#define TEST_NUMBER
-#define STRING_LENGTH
-#define STRINGIFY(x) #x
-#define TO_STRING(x) STRINGIFY(x)
-
-typedef bool(*testfun)();
-
-	char test_str[TEST_NUMBER][STRING_LENGTH] = {
-	};
-	testfun func[TEST_NUMBER] = {
-	};
-
-	int success_count = 0;
-	for (int i = 0; i < TEST_NUMBER; i++) {
-		bool test_result = func[i]();
-		if (test_result) success_count++;
-		std::printf("Test%" TO_STRING(STRING_LENGTH) "s: %s\n", test_str[i], (test_result) ? "passed" : "failed");
-	}
-	{
-		double percent_passed = (double)success_count / (double)TEST_NUMBER * 100.0;
-		std::printf("%i of %i passed, %f%%\n", success_count, TEST_NUMBER, percent_passed);
-	}
- */
