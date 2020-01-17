@@ -189,6 +189,23 @@ bool vc2_unit_vector()
 	return vec2.x == a && vec2.y == b;
 }
 
+bool vc2_cosine_angle()
+{
+	auto x = float_number_range(random_eng);
+	auto y = float_number_range(random_eng);
+	auto z = float_number_range(random_eng);
+	auto w = float_number_range(random_eng);
+
+	auto vc1 = MisterEggnog::Vector2(x, y);
+	auto vc2 = MisterEggnog::Vector2(z, w);
+
+	auto vc_cos_angle = vc1.cosine_between(vc2, std::sqrt);
+
+	auto cos_angle = (w*z + y*w) / (std::sqrt(x*x+y*y) * std::sqrt(z*z+w*w));
+
+	return vc_cos_angle == cos_angle;
+}
+
 bool special_implmentation()
 {
 	// Tests float
@@ -252,7 +269,7 @@ bool special_implmentation()
 	return true;
 }
 
-#define TEST_NUMBER 9
+#define TEST_NUMBER 10
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -268,6 +285,7 @@ int main()
 		"vc2 dot product",
 		"vc2 magnitude",
 		"vc2 unit vector",
+		"vc2 cos theta",
 		"vc2 special impl"
 	};
 	testfun func[TEST_NUMBER] = {
@@ -279,6 +297,7 @@ int main()
 		vc2_dot_product,
 		vc2_magnitude,
 		vc2_unit_vector,
+		vc2_cosine_angle,
 		special_implmentation
 	};
 
