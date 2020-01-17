@@ -253,7 +253,18 @@ bool vc2_special_implmentation()
 	return true;
 }
 
-#define TEST_NUMBER 9
+bool vc2_neg_pos_op()
+{
+	int x = number_range(random_eng);
+	int y = number_range(random_eng);
+	auto vec = -MisterEggnog::Vector2(x, y);
+	
+	return -x == vec.x
+		&& -y == vec.y
+		&& vec == +vec;
+}
+
+#define TEST_NUMBER 10
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -270,6 +281,7 @@ int main()
 		"vc2 magnitude",
 		"vc2 unit vector",
 		"vc2 special impl",
+		"vc2 pos/neg op",
 	};
 	testfun func[TEST_NUMBER] = {
 		add2_op,
@@ -281,6 +293,7 @@ int main()
 		vc2_magnitude,
 		vc2_unit_vector,
 		vc2_special_implmentation,
+		vc2_neg_pos_op,
 	};
 
 	int success_count = 0;

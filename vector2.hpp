@@ -66,6 +66,18 @@ struct Vector2 {
 		return *this;
 	}
 
+	// Since this is an operation for some reason
+	constexpr Vector2<T> operator-()
+	{
+		return  Vector2(-this->x, -this->y);
+	}
+
+	// Since this is an operation for some reason
+	constexpr Vector2<T>& operator+()
+	{
+		return *this;
+	}
+
 	constexpr T dot_product(const Vector2<T>& rhs) const
 	{
 		return this->x * rhs.x + this->y * rhs.y;
