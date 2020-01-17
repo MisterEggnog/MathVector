@@ -191,19 +191,29 @@ bool vc2_unit_vector()
 
 bool vc2_cosine_angle()
 {
-	auto x = float_number_range(random_eng);
-	auto y = float_number_range(random_eng);
-	auto z = float_number_range(random_eng);
-	auto w = float_number_range(random_eng);
+	double x = 0;
+	double y = 1;
+	double z = 1;
+	double w = 0;
 
 	auto vc1 = MisterEggnog::Vector2(x, y);
 	auto vc2 = MisterEggnog::Vector2(z, w);
 
 	auto vc_cos_angle = vc1.cosine_between(vc2, std::sqrt);
 
+	auto vc1_magn = std::sqrt(x*x+y*y);
+	auto vc2_magn = std::sqrt(z*z+w*w);
+
 	auto cos_angle = (w*z + y*w) / (std::sqrt(x*x+y*y) * std::sqrt(z*z+w*w));
 
-	return vc_cos_angle == cos_angle;
+	if (vc_cos_angle != cos_angle) {
+		std::printf("Vectors (%f,%f):(%f,%f)\n", x, y, z, w);
+		std::printf("Magnitudes %f:%f\n", vc1_magn, vc2_magn);
+		std::printf("Angles %f:%f\n", vc_cos_angle, cos_angle);
+		return false;
+	}
+
+	return true;
 }
 
 bool special_implmentation()

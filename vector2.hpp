@@ -100,7 +100,7 @@ struct Vector2 {
 	}
 
 	T cosine_between(const Vector2<T>& b, T(*magnitude)(T)) const {
-		return dot_product(b, magnitude) / (this->magnitude(magnitude) * b.magnitude(magnitude));
+		return dot_product(b) / (this->magnitude(magnitude) * b.magnitude(magnitude));
 	}
 
 };
