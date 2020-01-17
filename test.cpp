@@ -1,5 +1,6 @@
 
 #include "vector2.hpp"
+#include "vector.hpp"
 #include <cstdio>
 #include <cmath>
 #include <limits>
