@@ -1,5 +1,3 @@
-#ifndef MISTEREGGNOG_VECTOR2_HPP_INCLUDED
-#define MISTEREGGNOG_VECTOR2_HPP_INCLUDED
 /*
 MIT License
 
@@ -23,7 +21,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
+#ifndef MISTEREGGNOG_VECTOR2_HPP_INCLUDED
+#define MISTEREGGNOG_VECTOR2_HPP_INCLUDED
 #include <cmath>
 #include <type_traits>
 
@@ -97,10 +96,6 @@ struct Vector2 {
 	constexpr Vector2<T> unit_vector(T(*magnitude)(T)) const
 	{
 		return (*this) * ((T)1 / this->magnitude(magnitude));
-	}
-
-	T cosine_between(const Vector2<T>& b, T(*magnitude)(T)) const {
-		return dot_product(b) / (this->magnitude(magnitude) * b.magnitude(magnitude));
 	}
 
 };
