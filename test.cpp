@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #include "vector2.hpp"
+#include "vector3.hpp"
 #include "vector.hpp"
 #include <cstdio>
 #include <cmath>
@@ -35,6 +36,10 @@ typedef bool(*testfun)();
 std::mt19937 random_eng;
 std::uniform_int_distribution number_range(std::numeric_limits<short>::min(), std::numeric_limits<short>::max());
 std::uniform_real_distribution float_number_range(-20.0, 20.0);
+
+/////////////////////////////////////////////////////////////////////
+// Vector 2
+/////////////////////////////////////////////////////////////////////
 
 bool add2_op()
 {
@@ -302,6 +307,15 @@ bool vc2_complex_multiplication()
 
 	return vc3.x == e && vc3.y == f;
 }
+
+/////////////////////////////////////////////////////////////////////
+// Vector 3
+/////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////
+// General Length Vector
+/////////////////////////////////////////////////////////////////////
 
 #define TEST_NUMBER 11
 #define STRING_LENGTH 18
