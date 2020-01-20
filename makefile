@@ -10,5 +10,5 @@ all: $(TARGET)
 clean:
 	rm $(TARGET)
 
-$(TARGET): test.cpp vector2.hpp
+$(TARGET): test.cpp vector2.hpp vector3.hpp vector.hpp
 	$(CXX) $(CXXFLAGS) $< -o $@
