@@ -34,7 +34,7 @@ using Vector2f = MisterEggnog::Vector2<double>;
 typedef bool(*testfun)();
 
 std::mt19937 random_eng;
-std::uniform_int_distribution number_range(std::numeric_limits<short>::min(), std::numeric_limits<short>::max());
+std::uniform_int_distribution<int> number_range(std::numeric_limits<short>::min(), std::numeric_limits<short>::max());
 std::uniform_real_distribution float_number_range(-20.0, 20.0);
 
 /////////////////////////////////////////////////////////////////////
@@ -312,12 +312,52 @@ bool vc2_complex_multiplication()
 // Vector 3
 /////////////////////////////////////////////////////////////////////
 
+bool add3_op()
+{
+	// vec +=
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int u = number_range(random_eng);
+		int v = number_range(random_eng);
+		int w = number_range(random_eng);
+		auto vc1 = MisterEggnog::Vector3(x, y, z);
+		auto vc2 = MisterEggnog::Vector3(u, v, w);
+		x   += u;
+		y   += v;
+		z   += w;
+		vc1 += vc2;
+		if (vc1.x != x && vc1.y != y && vc1.z != z)
+			return false;
+	}
+
+	// vec + vec
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int u = number_range(random_eng);
+		int v = number_range(random_eng);
+		int w = number_range(random_eng);
+		auto vc1 = MisterEggnog::Vector3(x, y, z);
+		auto vc2 = MisterEggnog::Vector3(u, v, w);
+		auto vc3 = (vc1 + vc2);
+		x   += u;
+		y   += v;
+		z   += w;
+		if (vc3.x != x && vc3.y == y && vc3.z == z)
+			return false;
+	}
+
+	return true;
+}
 
 /////////////////////////////////////////////////////////////////////
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 11
+#define TEST_NUMBER 12
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -325,6 +365,7 @@ bool vc2_complex_multiplication()
 int main()
 {
 	char test_str[TEST_NUMBER][STRING_LENGTH] = {
+		// vc2
 		"vc2 + op",
 		"vc2 - op",
 		"vc2 * op",
@@ -336,8 +377,12 @@ int main()
 		"vc2 special impl",
 		"vc2 pos/neg op",
 		"vc2 complex *",
+		// vc3
+		"vc3 + op",
+		// vc
 	};
 	testfun func[TEST_NUMBER] = {
+		// vc2
 		add2_op,
 		minus2_op,
 		multi2_op,
@@ -349,6 +394,9 @@ int main()
 		vc2_special_implmentation,
 		vc2_neg_pos_op,
 		vc2_complex_multiplication,
+		// vc3
+		add3_op,
+		// vc
 	};
 
 	int success_count = 0;
