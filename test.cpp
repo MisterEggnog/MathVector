@@ -353,11 +353,52 @@ bool add3_op()
 	return true;
 }
 
+bool minus3_op()
+{
+	// vec -=
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int u = number_range(random_eng);
+		int v = number_range(random_eng);
+		int w = number_range(random_eng);
+		auto vc1 = MisterEggnog::Vector3(x, y, z);
+		auto vc2 = MisterEggnog::Vector3(u, v, w);
+		x   -= u;
+		y   -= v;
+		z   -= w;
+		vc1 -= vc2;
+		if (vc1.x != x && vc1.y != y && vc1.z != z)
+			return false;
+	}
+
+	// vec - vec
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int u = number_range(random_eng);
+		int v = number_range(random_eng);
+		int w = number_range(random_eng);
+		auto vc1 = MisterEggnog::Vector3(x, y, z);
+		auto vc2 = MisterEggnog::Vector3(u, v, w);
+		auto vc3 = (vc1 - vc2);
+		x   -= u;
+		y   -= v;
+		z   -= w;
+		if (vc3.x != x && vc3.y == y && vc3.z == z)
+			return false;
+	}
+
+	return true;
+}
+
 /////////////////////////////////////////////////////////////////////
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 12
+#define TEST_NUMBER 13
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -379,7 +420,7 @@ int main()
 		"vc2 complex *",
 		// vc3
 		"vc3 + op",
-		// vc
+		"vc3 - op",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -396,6 +437,7 @@ int main()
 		vc2_complex_multiplication,
 		// vc3
 		add3_op,
+		minus3_op,
 		// vc
 	};
 
