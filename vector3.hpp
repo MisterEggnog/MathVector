@@ -39,12 +39,7 @@ struct Vector3 {
 	constexpr Vector3& operator=(const Vector3&) noexcept(std::is_nothrow_copy_assignable<T>()) = default;
 	constexpr Vector3& operator=(Vector3&&) noexcept(std::is_nothrow_move_assignable<T>()) = default;
 
-	constexpr Vector3(const T& x, const T& y, const T& z) noexcept
-	{
-		this->x = x;
-		this->y = y;
-		this->z = z;
-	}
+	constexpr Vector3(const T& val_x, const T& val_y, const T& val_z) noexcept : x(val_x), y(val_y), z(val_z) {}
 
 	constexpr Vector3<T> operator+=(const Vector3<T>& rhs)
 	{

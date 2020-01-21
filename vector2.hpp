@@ -39,11 +39,7 @@ struct Vector2 {
 	constexpr Vector2& operator=(const Vector2&) noexcept(std::is_nothrow_copy_assignable<T>()) = default;
 	constexpr Vector2& operator=(Vector2&&) noexcept(std::is_nothrow_move_assignable<T>()) = default;
 
-	constexpr Vector2(const T& x, const T& y) noexcept
-	{
-		this->x = x;
-		this->y = y;
-	}
+	constexpr Vector2(const T& val_x, const T& val_y) noexcept : x(val_x), y(val_y) {}
 
 	constexpr Vector2<T>& operator+=(const Vector2<T>& rhs)
 	{
