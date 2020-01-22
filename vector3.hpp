@@ -57,6 +57,14 @@ struct Vector3 {
 		return *this;
 	}
 
+	constexpr Vector3<T> operator*=(const T& rhs)
+	{
+		x *= rhs;
+		y *= rhs;
+		z *= rhs;
+		return *this;
+	}
+
 };
 
 template <class T>
@@ -71,6 +79,20 @@ constexpr Vector3<T> operator-(Vector3<T> lhs, const Vector3<T>& rhs)
 {
 	lhs -= rhs;
 	return lhs;
+}
+
+template <class T>
+constexpr Vector3<T> operator*(Vector3<T> lhs, const T& rhs)
+{
+	lhs *= rhs;
+	return lhs;
+}
+
+template <class T>
+constexpr Vector3<T> operator*(const T& lhs, Vector3<T> rhs)
+{
+	rhs *= lhs;
+	return rhs;
 }
 
 }

@@ -387,7 +387,60 @@ bool minus3_op()
 		x   -= u;
 		y   -= v;
 		z   -= w;
-		if (vc3.x != x && vc3.y == y && vc3.z == z)
+		if (vc3.x != x && vc3.y != y && vc3.z != z)
+			return false;
+	}
+
+	return true;
+}
+
+bool multi3_op()
+{
+	// *=
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int u = number_range(random_eng);
+		auto vc = MisterEggnog::Vector3(x, y, z);
+		x  *= u;
+		y  *= u;
+		z  *= u;
+		vc *= u;
+
+		if (x != vc.x && y != vc.y && z != vc.z)
+			return false;
+	}
+
+	// vc * scalar
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int u = number_range(random_eng);
+		auto vc1 = MisterEggnog::Vector3(x, y, z);
+		auto vc2 = vc1 * u;
+		x  *= u;
+		y  *= u;
+		z  *= u;
+
+		if (x != vc2.x && y != vc2.y && z != vc2.z)
+			return false;
+	}
+
+	// scalar * vc
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int u = number_range(random_eng);
+		auto vc1 = MisterEggnog::Vector3(x, y, z);
+		auto vc2 = u * vc1;
+		x  *= u;
+		y  *= u;
+		z  *= u;
+
+		if (x != vc2.x && y != vc2.y && z != vc2.z)
 			return false;
 	}
 
@@ -398,7 +451,7 @@ bool minus3_op()
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 13
+#define TEST_NUMBER 14
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -421,6 +474,7 @@ int main()
 		// vc3
 		"vc3 + op",
 		"vc3 - op",
+		"vc3 * op",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -438,6 +492,7 @@ int main()
 		// vc3
 		add3_op,
 		minus3_op,
+		multi3_op,
 		// vc
 	};
 
