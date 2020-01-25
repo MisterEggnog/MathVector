@@ -22,15 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #include "vector2.hpp"
-#include "vector3.hpp"
-#include "vector.hpp"
 #include <cstdio>
 #include <cmath>
 #include <limits>
 #include <random>
 
-using Vector2 = MisterEggnog::Vector2<int>;
-using Vector2f = MisterEggnog::Vector2<double>;
 typedef bool(*testfun)();
 
 std::mt19937 random_eng;
@@ -49,8 +45,8 @@ bool add2_op()
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
 		int w = number_range(random_eng);
-		Vector2 vc1{x, y};
-		Vector2 vc2{z, w};
+		auto vc1 = MisterEggnog::Vector2(x, y);
+		auto vc2 = MisterEggnog::Vector2(z, w);
 		x   += z;
 		y   += w;
 		vc1 += vc2;
@@ -64,9 +60,9 @@ bool add2_op()
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
 		int w = number_range(random_eng);
-		Vector2 vc1{x, y};
-		Vector2 vc2{x, y};
-		Vector2 vc3(vc1 + vc2);
+		auto vc1 = MisterEggnog::Vector2(x, y);
+		auto vc2 = MisterEggnog::Vector2(z, w);
+		auto vc3 = vc1 + vc2;
 		x += z;
 		y += w;
 		if (vc3.x != x && vc3.y == y)
@@ -78,14 +74,14 @@ bool add2_op()
 
 bool minus2_op()
 {
-	// vec +=
+	// vec -=
 	{
 		int x = number_range(random_eng);
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
 		int w = number_range(random_eng);
-		Vector2 vc1{x, y};
-		Vector2 vc2{z, w};
+		auto vc1 = MisterEggnog::Vector2(x, y);
+		auto vc2 = MisterEggnog::Vector2(z, w);
 		x   -= z;
 		y   -= w;
 		vc1 -= vc2;
@@ -93,15 +89,15 @@ bool minus2_op()
 			return false;
 	}
 
-	// vec + vec
+	// vec - vec
 	{
 		int x = number_range(random_eng);
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
 		int w = number_range(random_eng);
-		Vector2 vc1{x, y};
-		Vector2 vc2{x, y};
-		Vector2 vc3(vc1 - vc2);
+		auto vc1 = MisterEggnog::Vector2(x, y);
+		auto vc2 = MisterEggnog::Vector2(z, w);
+		auto vc3 = vc1 - vc2;
 		x -= z;
 		y -= w;
 		if (vc3.x != x && vc3.y == y)
@@ -118,7 +114,7 @@ bool multi2_op()
 		int x = number_range(random_eng);
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
-		Vector2 vc{x, y};
+		auto vc = MisterEggnog::Vector2(x, y);
 		x  *= z;
 		y  *= z;
 		vc *= z;
@@ -131,10 +127,10 @@ bool multi2_op()
 		int x = number_range(random_eng);
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
-		Vector2 vc{x, y};
+		auto vc = MisterEggnog::Vector2(x, y);
 		x  *= z;
 		y  *= z;
-		Vector2 vc2 = vc * z;
+		auto vc2 = vc * z;
 		if (vc2.x != x && vc2.y != y)
 			return false;
 	}
@@ -144,10 +140,10 @@ bool multi2_op()
 		int x = number_range(random_eng);
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
-		Vector2 vc{x, y};
+		auto vc = MisterEggnog::Vector2(x, y);
 		x  *= z;
 		y  *= z;
-		Vector2 vc2 = z * vc;
+		auto vc2 = z * vc;
 		if (vc2.x != x && vc2.y != y)
 			return false;
 	}
@@ -174,144 +170,26 @@ bool noexcept_vc2()
 
 bool comparision_vc2()
 {
-	Vector2 vc1(number_range(random_eng), number_range(random_eng));
-	Vector2 vc2(number_range(random_eng), number_range(random_eng));
-	Vector2 vc3(vc1);
+	auto vc1 = MisterEggnog::Vector2(number_range(random_eng), number_range(random_eng));
+	auto vc2 = MisterEggnog::Vector2(number_range(random_eng), number_range(random_eng));
+	auto vc3(vc1);
 	return vc1 != vc2 && vc1 == vc3;
 }
 
-bool vc2_dot_product()
+bool vc2_array_access()
 {
 	int x = number_range(random_eng);
 	int y = number_range(random_eng);
-	int z = number_range(random_eng);
-	int w = number_range(random_eng);
-	Vector2 vc1{w, x};
-	Vector2 vc2{y, z};
-	int dot_product = w*y + x*z;
-
-	return dot_product == vc1.dot_product(vc2);
-}
-
-bool vc2_magnitude()
-{
-	double x = float_number_range(random_eng);
-	double y = float_number_range(random_eng);
-	Vector2f vec{x, y};
-	double magnitude = std::sqrt(x*x + y*y);
-
-	return magnitude == vec.magnitude(std::sqrt);
-}
-
-bool vc2_unit_vector()
-{
-	double a = float_number_range(random_eng);
-	double b = float_number_range(random_eng);
-	double c = std::sqrt(a*a + b*b);
-	auto vec = MisterEggnog::Vector2(a, b);
-
-	a *= 1 / c;
-	b *= 1 / c;
-	auto vec2 = vec.unit_vector(std::sqrt);
-
-	return vec2.x == a && vec2.y == b;
-}
-
-bool vc2_special_implmentation()
-{
-	// Tests float
-	{
-		std::uniform_real_distribution<float> roll_float(-10.f, 10.f);
-		float a = roll_float(random_eng);
-		float b = roll_float(random_eng);
-		auto vecf = MisterEggnog::Vector2(a, b);
-
-		float c = std::hypotf(a, b);
-		float vec_magnitude = vecf.magnitude();
-
-		auto a_unit = a / c;
-		auto b_unit = b / c;
-		auto unit_vecf = vecf.unit_vector();
-
-		if (c != vec_magnitude
-			&& a_unit == unit_vecf.x
-			&& b_unit == unit_vecf.y)
-			return false;
-	}
-
-	// Tests double
-	{
-		double a = float_number_range(random_eng);
-		double b = float_number_range(random_eng);
-		auto vecf = MisterEggnog::Vector2(a, b);
-
-		double c = std::hypot(a, b);
-		double vec_magnitude = vecf.magnitude();
-
-		auto a_unit = a / c;
-		auto b_unit = b / c;
-		auto unit_vecf = vecf.unit_vector();
-
-		if (c != vec_magnitude
-			&& a_unit == unit_vecf.x
-			&& b_unit == unit_vecf.y)
-			return false;
-	}
-
-	// Tests double
-	{
-		long double a = float_number_range(random_eng);
-		long double b = float_number_range(random_eng);
-		auto vecf = MisterEggnog::Vector2(a, b);
-
-		long double c = std::hypotl(a, b);
-		long double vec_magnitude = vecf.magnitude();
-
-		auto a_unit = a / c;
-		auto b_unit = b / c;
-		auto unit_vecf = vecf.unit_vector();
-
-		if (c != vec_magnitude
-			&& a_unit == unit_vecf.x
-			&& b_unit == unit_vecf.y)
-			return false;
-	}
-
-	return true;
-}
-
-bool vc2_neg_pos_op()
-{
-	int x = number_range(random_eng);
-	int y = number_range(random_eng);
-	auto vec = -MisterEggnog::Vector2(x, y);
-	
-	return -x == vec.x
-		&& -y == vec.y
-		&& vec == +vec;
-}
-
-bool vc2_complex_multiplication()
-{
-	int a = number_range(random_eng);
-	int b = number_range(random_eng);
-	int c = number_range(random_eng);
-	int d = number_range(random_eng);
-
-	auto vc1 = MisterEggnog::Vector2(a, b);
-	auto vc2 = MisterEggnog::Vector2(c, d);
-
-	auto e = a*c - b*d;
-	auto f = a*d + c*b;
-	auto vc3 = MisterEggnog::complex_multiplication(vc1, vc2);
-
-	return vc3.x == e && vc3.y == f;
+	MisterEggnog::Vector2<int> vc;
+	vc[0] = x;
+	vc[1] = y;
+	return vc[0] == x && vc[1] == y;
 }
 
 /////////////////////////////////////////////////////////////////////
 // Vector 3
 /////////////////////////////////////////////////////////////////////
-
+#if 0
 bool add3_op()
 {
 	// vec +=
@@ -446,12 +324,12 @@ bool multi3_op()
 
 	return true;
 }
-
+#endif
 /////////////////////////////////////////////////////////////////////
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 14
+#define TEST_NUMBER 5
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -465,16 +343,12 @@ int main()
 		"vc2 * op",
 		"vc2 noexcept",
 		"vc2 comparision",
-		"vc2 dot product",
-		"vc2 magnitude",
-		"vc2 unit vector",
-		"vc2 special impl",
-		"vc2 pos/neg op",
-		"vc2 complex *",
 		// vc3
+#if 0
 		"vc3 + op",
 		"vc3 - op",
 		"vc3 * op",
+#endif
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -483,16 +357,12 @@ int main()
 		multi2_op,
 		noexcept_vc2,
 		comparision_vc2,
-		vc2_dot_product,
-		vc2_magnitude,
-		vc2_unit_vector,
-		vc2_special_implmentation,
-		vc2_neg_pos_op,
-		vc2_complex_multiplication,
 		// vc3
+#if 0
 		add3_op,
 		minus3_op,
 		multi3_op,
+#endif
 		// vc
 	};
 
