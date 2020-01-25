@@ -4,11 +4,12 @@
 CXX=g++
 CXXFLAGS=-g -std=c++17
 TARGET=test
+HEADERS=*.hpp
 
 all: $(TARGET)
 
 clean:
 	rm $(TARGET)
 
-$(TARGET): test.cpp vector2.hpp vector3.hpp vector.hpp
+$(TARGET): test.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) $< -o $@
