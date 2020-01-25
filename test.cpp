@@ -331,11 +331,28 @@ bool multi3_op()
 	return true;
 }
 
+bool vc3_noexcept()
+{
+	struct throwable {
+		throwable();
+		throwable(const throwable&);
+		throwable(throwable&&);
+		throwable& operator=(const throwable&);
+		throwable& operator=(throwable&&);
+	};
+
+	return !std::is_nothrow_default_constructible<MisterEggnog::Vector3<throwable>>()
+		&& !std::is_nothrow_copy_constructible<MisterEggnog::Vector3<throwable>>()
+		&& !std::is_nothrow_move_constructible<MisterEggnog::Vector3<throwable>>()
+		&& !std::is_nothrow_copy_assignable<MisterEggnog::Vector3<throwable>>()
+		&& !std::is_nothrow_move_assignable<MisterEggnog::Vector3<throwable>>();
+}
+
 /////////////////////////////////////////////////////////////////////
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 10
+#define TEST_NUMBER 11
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -355,6 +372,7 @@ int main()
 		"vc3 + op",
 		"vc3 - op",
 		"vc3 * op",
+		"vc3 noexcept",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -369,6 +387,7 @@ int main()
 		add3_op,
 		minus3_op,
 		multi3_op,
+		vc3_noexcept,
 		// vc
 	};
 
