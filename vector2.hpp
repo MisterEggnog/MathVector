@@ -81,7 +81,7 @@ struct Vector2 {
 
 	constexpr const T& operator[](std::size_t i) const
 	{
-		assert(i < 2);
+		assert(i < size());
 		if (i == 0)
 			return x;
 		else if (i == 1)
