@@ -186,6 +186,11 @@ bool vc2_array_access()
 	return vc[0] == x && vc[1] == y;
 }
 
+bool size_function()
+{
+	return MisterEggnog::Vector2<int>::size() == 2;
+}
+
 /////////////////////////////////////////////////////////////////////
 // Vector 3
 /////////////////////////////////////////////////////////////////////
@@ -329,7 +334,7 @@ bool multi3_op()
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 5
+#define TEST_NUMBER 7
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -343,6 +348,8 @@ int main()
 		"vc2 * op",
 		"vc2 noexcept",
 		"vc2 comparision",
+		"vc2 []",
+		"size fn",
 		// vc3
 #if 0
 		"vc3 + op",
@@ -357,6 +364,8 @@ int main()
 		multi2_op,
 		noexcept_vc2,
 		comparision_vc2,
+		vc2_array_access,
+		size_function,
 		// vc3
 #if 0
 		add3_op,
@@ -376,4 +385,9 @@ int main()
 		double percent_passed = (double)success_count / (double)TEST_NUMBER * 100.0;
 		std::printf("%i of %i passed, %f%%\n", success_count, TEST_NUMBER, percent_passed);
 	}
+
+	if (success_count == TEST_NUMBER)
+		return EXIT_SUCCESS;
+	else
+		return EXIT_FAILURE;
 }

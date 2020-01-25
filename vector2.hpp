@@ -63,15 +63,20 @@ struct Vector2 {
 	}
 
 	// Since this is an operation for some reason
-	constexpr Vector2<T> operator-()
+	constexpr Vector2<T> operator-() const
 	{
 		return  Vector2(-this->x, -this->y);
 	}
 
 	// Since this is an operation for some reason
-	constexpr Vector2<T>& operator+()
+	constexpr Vector2<T>& operator+() const
 	{
 		return *this;
+	}
+
+	static constexpr std::size_t size()
+	{
+		return 2;
 	}
 
 	constexpr const T& operator[](std::size_t i) const
