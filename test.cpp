@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #include "vector2.hpp"
+#include "vector3.hpp"
 #include <cstdio>
 #include <cmath>
 #include <limits>
@@ -194,7 +195,7 @@ bool size_function()
 /////////////////////////////////////////////////////////////////////
 // Vector 3
 /////////////////////////////////////////////////////////////////////
-#if 0
+
 bool add3_op()
 {
 	// vec +=
@@ -329,12 +330,12 @@ bool multi3_op()
 
 	return true;
 }
-#endif
+
 /////////////////////////////////////////////////////////////////////
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 7
+#define TEST_NUMBER 10
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -349,13 +350,11 @@ int main()
 		"vc2 noexcept",
 		"vc2 comparision",
 		"vc2 []",
-		"size fn",
+		"vc2 size fn",
 		// vc3
-#if 0
 		"vc3 + op",
 		"vc3 - op",
 		"vc3 * op",
-#endif
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -367,11 +366,9 @@ int main()
 		vc2_array_access,
 		size_function,
 		// vc3
-#if 0
 		add3_op,
 		minus3_op,
 		multi3_op,
-#endif
 		// vc
 	};
 

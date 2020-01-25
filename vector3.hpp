@@ -23,7 +23,7 @@ SOFTWARE.
 */
 #ifndef MISTEREGGNOG_VECTOR3_HPP_INCLUDED
 #define MISTEREGGNOG_VECTOR3_HPP_INCLUDED
-#include <cmath>
+#include <cassert>
 #include <type_traits>
 
 namespace MisterEggnog {
