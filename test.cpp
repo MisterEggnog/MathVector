@@ -348,11 +348,19 @@ bool vc3_noexcept()
 		&& !std::is_nothrow_move_assignable<MisterEggnog::Vector3<throwable>>();
 }
 
+bool comparision_vc3()
+{
+	auto vc1 = MisterEggnog::Vector3(number_range(random_eng), number_range(random_eng), number_range(random_eng));
+	auto vc2 = MisterEggnog::Vector3(number_range(random_eng), number_range(random_eng), number_range(random_eng));
+	auto vc3(vc1);
+	return vc1 != vc2 && vc1 == vc3;
+}
+
 /////////////////////////////////////////////////////////////////////
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 11
+#define TEST_NUMBER 12
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -373,6 +381,7 @@ int main()
 		"vc3 - op",
 		"vc3 * op",
 		"vc3 noexcept",
+		"vc3 comparision",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -388,6 +397,7 @@ int main()
 		minus3_op,
 		multi3_op,
 		vc3_noexcept,
+		comparision_vc3,
 		// vc
 	};
 

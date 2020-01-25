@@ -68,6 +68,18 @@ struct Vector3 {
 };
 
 template <class T>
+constexpr bool operator==(const Vector3<T>& lhs, const Vector3<T>& rhs)
+{
+	return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
+}
+
+template <class T>
+constexpr bool operator!=(const Vector3<T>& lhs, const Vector3<T>& rhs)
+{
+	return !(lhs == rhs);
+}
+
+template <class T>
 constexpr Vector3<T> operator+(Vector3<T> lhs, const Vector3<T>& rhs)
 {
 	lhs += rhs;
