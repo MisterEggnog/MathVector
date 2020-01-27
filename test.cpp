@@ -364,11 +364,23 @@ bool comparision_vc3()
 	return vc1 != vc2 && vc1 == vc3;
 }
 
+bool vc3_array_access()
+{
+	int x = number_range(random_eng);
+	int y = number_range(random_eng);
+	int z = number_range(random_eng);
+	MisterEggnog::Vector3<int> vc;
+	vc[0] = x;
+	vc[1] = y;
+	vc[2] = z;
+	return vc[0] == x && vc[1] == y && vc[2] == z;
+}
+
 /////////////////////////////////////////////////////////////////////
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 13
+#define TEST_NUMBER 14
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -391,6 +403,7 @@ int main()
 		"vc3 * op",
 		"vc3 noexcept",
 		"vc3 comparision",
+		"vc3 []",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -408,6 +421,7 @@ int main()
 		multi3_op,
 		vc3_noexcept,
 		comparision_vc3,
+		vc3_array_access,
 		// vc
 	};
 

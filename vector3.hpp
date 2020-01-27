@@ -67,6 +67,24 @@ struct Vector3 {
 		return *this;
 	}
 
+	constexpr const T& operator[](std::size_t i) const
+	{
+		assert(i < SIZE);
+
+		if (i == 0)
+			return x;
+		if (i == 1)
+			return y;
+		if (i == 2)
+			return z;
+
+		return x; // This should never be reached.
+	}
+
+	constexpr T& operator[](std::size_t i)
+	{
+		return const_cast<T&>(const_cast<const Vector3<T>*>(this)->operator[](i));
+	}
 };
 
 template <class T>
