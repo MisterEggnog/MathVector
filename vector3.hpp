@@ -32,6 +32,8 @@ template <class T>
 struct Vector3 {
 	T x, y, z;
 
+	static constexpr std::size_t SIZE = 3;
+
 	constexpr Vector3() noexcept(std::is_nothrow_default_constructible<T>()) = default;
 	constexpr Vector3(const Vector3&) noexcept(std::is_nothrow_copy_constructible<T>()) = default;
 	constexpr Vector3(Vector3&&) noexcept(std::is_nothrow_move_constructible<T>()) = default;

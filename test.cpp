@@ -187,9 +187,9 @@ bool vc2_array_access()
 	return vc[0] == x && vc[1] == y;
 }
 
-bool size_function()
+bool vc2_size_constant()
 {
-	return MisterEggnog::Vector2<int>::size() == 2;
+	return MisterEggnog::Vector2<int>::SIZE == 2;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -375,7 +375,7 @@ int main()
 		"vc2 noexcept",
 		"vc2 comparision",
 		"vc2 []",
-		"vc2 size fn",
+		"vc2 size const",
 		// vc3
 		"vc3 + op",
 		"vc3 - op",
@@ -391,7 +391,7 @@ int main()
 		noexcept_vc2,
 		comparision_vc2,
 		vc2_array_access,
-		size_function,
+		vc2_size_constant,
 		// vc3
 		add3_op,
 		minus3_op,

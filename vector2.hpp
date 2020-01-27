@@ -32,6 +32,9 @@ template <class T>
 struct Vector2 {
 	T x, y;
 
+	static constexpr std::size_t SIZE = 2;
+
+
 	constexpr Vector2() noexcept(std::is_nothrow_default_constructible<T>()) = default;
 	constexpr Vector2(const Vector2&) noexcept(std::is_nothrow_copy_constructible<T>()) = default;
 	constexpr Vector2(Vector2&&) noexcept(std::is_nothrow_move_constructible<T>()) = default;
@@ -74,14 +77,9 @@ struct Vector2 {
 		return *this;
 	}
 
-	static constexpr std::size_t size()
-	{
-		return 2;
-	}
-
 	constexpr const T& operator[](std::size_t i) const
 	{
-		assert(i < size());
+		assert(i < SIZE);
 		if (i == 0)
 			return x;
 		else if (i == 1)
