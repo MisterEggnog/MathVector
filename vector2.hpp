@@ -80,12 +80,13 @@ struct Vector2 {
 	constexpr const T& operator[](std::size_t i) const
 	{
 		assert(i < SIZE);
+
 		if (i == 0)
 			return x;
-		else if (i == 1)
+		if (i == 1)
 			return y;
-		else
-			return x; // This should never be reached.
+
+		return x; // This should never be reached.
 	}
 
 	constexpr T& operator[](std::size_t i)
