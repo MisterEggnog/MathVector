@@ -68,11 +68,11 @@ struct Vector2 {
 	// Since this is an operation for some reason
 	constexpr Vector2<T> operator-() const
 	{
-		return  Vector2(-this->x, -this->y);
+		return Vector2(-this->x, -this->y);
 	}
 
 	// Since this is an operation for some reason
-	constexpr Vector2<T>& operator+() const
+	constexpr const Vector2<T>& operator+() const
 	{
 		return *this;
 	}

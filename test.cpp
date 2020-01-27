@@ -192,6 +192,14 @@ bool vc2_size_constant()
 	return MisterEggnog::Vector2<int>::SIZE == 2;
 }
 
+bool vc2_sign_ops()
+{
+	auto vc1 = MisterEggnog::Vector2(number_range(random_eng), number_range(random_eng));
+	auto vc2(+vc1);
+	auto vc3(-vc1);
+	return vc1 == vc2 && (vc1 * -1) == vc3;
+}
+
 /////////////////////////////////////////////////////////////////////
 // Vector 3
 /////////////////////////////////////////////////////////////////////
@@ -360,7 +368,7 @@ bool comparision_vc3()
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 12
+#define TEST_NUMBER 13
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -376,6 +384,7 @@ int main()
 		"vc2 comparision",
 		"vc2 []",
 		"vc2 size const",
+		"vc2 \"sign\" ops",
 		// vc3
 		"vc3 + op",
 		"vc3 - op",
@@ -392,6 +401,7 @@ int main()
 		comparision_vc2,
 		vc2_array_access,
 		vc2_size_constant,
+		vc2_sign_ops,
 		// vc3
 		add3_op,
 		minus3_op,
