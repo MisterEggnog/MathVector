@@ -8,8 +8,11 @@ HEADERS=*.hpp
 
 all: $(TARGET)
 
+run: $(TARGET)
+	./$(TARGET)
+
 clean:
-	rm $(TARGET)
+	rm -f $(TARGET)
 
 $(TARGET): test.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) $< -o $@
