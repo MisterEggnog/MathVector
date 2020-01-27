@@ -376,11 +376,16 @@ bool vc3_array_access()
 	return vc[0] == x && vc[1] == y && vc[2] == z;
 }
 
+bool vc3_size_constant()
+{
+	return MisterEggnog::Vector3<int>::SIZE == 3;
+}
+
 /////////////////////////////////////////////////////////////////////
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 14
+#define TEST_NUMBER 15
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -404,6 +409,7 @@ int main()
 		"vc3 noexcept",
 		"vc3 comparision",
 		"vc3 []",
+		"vc3 size const",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -422,6 +428,7 @@ int main()
 		vc3_noexcept,
 		comparision_vc3,
 		vc3_array_access,
+		vc3_size_constant,
 		// vc
 	};
 
