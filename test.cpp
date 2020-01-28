@@ -381,11 +381,19 @@ bool vc3_size_constant()
 	return MisterEggnog::Vector3<int>::SIZE == 3;
 }
 
+bool vc3_sign_ops()
+{
+	auto vc1 = MisterEggnog::Vector3(number_range(random_eng), number_range(random_eng), number_range(random_eng));
+	auto vc2(+vc1);
+	auto vc3(-vc1);
+	return vc1 == vc2 && (vc1 * -1) == vc3;
+}
+
 /////////////////////////////////////////////////////////////////////
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 15
+#define TEST_NUMBER 16
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -410,6 +418,7 @@ int main()
 		"vc3 comparision",
 		"vc3 []",
 		"vc3 size const",
+		"vc3 \"sign\" ops",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -429,6 +438,7 @@ int main()
 		comparision_vc3,
 		vc3_array_access,
 		vc3_size_constant,
+		vc3_sign_ops,
 		// vc
 	};
 

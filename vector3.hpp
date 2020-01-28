@@ -85,6 +85,16 @@ struct Vector3 {
 	{
 		return const_cast<T&>(const_cast<const Vector3<T>*>(this)->operator[](i));
 	}
+
+	constexpr const Vector3<T>& operator+() const
+	{
+		return *this;
+	}
+
+	constexpr Vector3<T> operator-() const
+	{
+		return Vector3(-x, -y, -z);
+	}
 };
 
 template <class T>
