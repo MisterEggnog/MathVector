@@ -14,5 +14,5 @@ clean:
 run: $(TARGET)
 	./$(TARGET)
 
-$(TARGET): test.cpp $(HEADERS)
+$(TARGET): test.cpp include/$(HEADERS)
 	$(CXX) $(CXXFLAGS) $< -o $@
