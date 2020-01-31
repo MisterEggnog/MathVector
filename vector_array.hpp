@@ -24,21 +24,22 @@ SOFTWARE.
 #ifndef MISTEREGGNOG_VECTOR_HPP_INCLUDED
 #define MISTEREGGNOG_VECTOR_HPP_INCLUDED
 
-#include <cmath>
 #include <array>
 #include <type_traits>
 
 namespace MisterEggnog {
 
-template <class T, std::size_t size>
-struct Vector : public std::array<T, size> {
+template <class T, std::size_t N>
+struct Vector : public std::array<T, N> {
 
-	constexpr Vector() noexcept(std::is_nothrow_default_constructible<std::array<T, size>>()) = default;
-	constexpr Vector(const Vector&) noexcept(std::is_nothrow_copy_constructible<std::array<T, size>>()) = default;
-	constexpr Vector(Vector&&) noexcept(std::is_nothrow_move_constructible<std::array<T, size>>()) = default;
+	static constexpr std::size_t SIZE = N;
+
+	constexpr Vector() noexcept(std::is_nothrow_default_constructible<std::array<T, N>>()) = default;
+	constexpr Vector(const Vector&) noexcept(std::is_nothrow_copy_constructible<std::array<T, N>>()) = default;
+	constexpr Vector(Vector&&) noexcept(std::is_nothrow_move_constructible<std::array<T, N>>()) = default;
 	~Vector() = default;
-	constexpr Vector& operator=(const Vector&) noexcept(std::is_nothrow_copy_assignable<std::array<T, size>>()) = default;
-	constexpr Vector& operator=(Vector&&) noexcept(std::is_nothrow_move_assignable<std::array<T, size>>()) = default;
+	constexpr Vector& operator=(const Vector&) noexcept(std::is_nothrow_copy_assignable<std::array<T, N>>()) = default;
+	constexpr Vector& operator=(Vector&&) noexcept(std::is_nothrow_move_assignable<std::array<T, N>>()) = default;
 
 };
 
