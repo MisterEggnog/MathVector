@@ -21,8 +21,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-#include "vector2.hpp"
-#include "vector3.hpp"
+#include "include/vector2.hpp"
+#include "include/vector3.hpp"
+#include "include/vector_array.hpp"
 #include <cstdio>
 #include <cmath>
 #include <limits>
@@ -393,7 +394,56 @@ bool vc3_sign_ops()
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-#define TEST_NUMBER 16
+typedef MisterEggnog::Vector<int, 4> vec4;
+
+bool vc3_add_op()
+{
+	// +=
+	{
+		int x1 = number_range(random_eng);
+		int x2 = number_range(random_eng);
+		int y1 = number_range(random_eng);
+		int y2 = number_range(random_eng);
+		int z1 = number_range(random_eng);
+		int z2 = number_range(random_eng);
+		int w1 = number_range(random_eng);
+		int w2 = number_range(random_eng);
+		vec4 vc1{x1, y1, z1, w1};
+		vec4 vc2{x2, y2, z2, w2};
+		x1  += x2;
+		y1  += y2;
+		z1  += z2;
+		w1  += w2;
+		vc1 += vc2;
+		if (vc1[0] != x1 && vc1[1] != y1 && vc1[2] != z1 && vc1[3] != w1)
+			return false;
+	}
+
+	// +
+	{
+		int x1 = number_range(random_eng);
+		int x2 = number_range(random_eng);
+		int y1 = number_range(random_eng);
+		int y2 = number_range(random_eng);
+		int z1 = number_range(random_eng);
+		int z2 = number_range(random_eng);
+		int w1 = number_range(random_eng);
+		int w2 = number_range(random_eng);
+		vec4 vc1{x1, y1, z1, w1};
+		vec4 vc2{x2, y2, z2, w2};
+		auto vc3 = vc1 + vc2;
+		x1  += x2;
+		y1  += y2;
+		z1  += z2;
+		w1  += w2;
+		if (vc3[0] != x1 && vc3[1] != y1 && vc3[2] != z1 && vc3[3] != w1)
+			return false;
+	}
+
+	return true;
+}
+
+#define TEST_NUMBER 17
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -419,6 +469,8 @@ int main()
 		"vc3 []",
 		"vc3 size const",
 		"vc3 \"sign\" ops",
+		// vcn
+		"vcn + op",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -440,6 +492,7 @@ int main()
 		vc3_size_constant,
 		vc3_sign_ops,
 		// vc
+		vc3_add_op,
 	};
 
 	int success_count = 0;
