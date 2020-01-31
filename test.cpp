@@ -490,7 +490,63 @@ bool vc3_sub_op()
 	return true;
 }
 
-#define TEST_NUMBER 18
+bool vc3_multi_op()
+{
+	// *=
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int w = number_range(random_eng);
+		int a = number_range(random_eng);
+		vec4 vc{x, y, z, w};
+		x  *= a;
+		y  *= a;
+		z  *= a;
+		w  *= a;
+		vc *= a;
+		if (vc[0] != x && vc[1] != y && vc[2] != z && vc[3] != w)
+			return false;
+	}
+
+	// vc * scalar
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int w = number_range(random_eng);
+		int a = number_range(random_eng);
+		vec4 vc1{x, y, z, w};
+		vec4 vc2 = vc1 * a;
+		x  *= a;
+		y  *= a;
+		z  *= a;
+		w  *= a;
+		if (vc2[0] != x && vc2[1] != y && vc2[2] != z && vc2[3] != w)
+			return false;
+	}
+
+	// scalar * vc
+	{
+		int x = number_range(random_eng);
+		int y = number_range(random_eng);
+		int z = number_range(random_eng);
+		int w = number_range(random_eng);
+		int a = number_range(random_eng);
+		vec4 vc1{x, y, z, w};
+		vec4 vc2 = a * vc1;
+		x  *= a;
+		y  *= a;
+		z  *= a;
+		w  *= a;
+		if (vc2[0] != x && vc2[1] != y && vc2[2] != z && vc2[3] != w)
+			return false;
+	}
+
+	return true;
+}
+
+#define TEST_NUMBER 19
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -519,6 +575,7 @@ int main()
 		// vcn
 		"vcn + op",
 		"vcn - op",
+		"vcn * op",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -542,6 +599,7 @@ int main()
 		// vc
 		vc3_add_op,
 		vc3_sub_op,
+		vc3_multi_op,
 	};
 
 	int success_count = 0;
