@@ -41,21 +41,21 @@ struct Vector : public std::array<T, N> {
 	constexpr Vector& operator=(const Vector&) noexcept(std::is_nothrow_copy_assignable<std::array<T, N>>()) = default;
 	constexpr Vector& operator=(Vector&&) noexcept(std::is_nothrow_move_assignable<std::array<T, N>>()) = default;
 
-	Vector<T, N> operator+=(const Vector<T, N>& rhs)
+	constexpr Vector<T, N> operator+=(const Vector<T, N>& rhs)
 	{
 		for (auto i = 0U; i < SIZE; i++)
 			this->operator[](i) += rhs[i];
 		return *this;
 	}
 
-	Vector<T, N> operator-=(const Vector<T, N>& rhs)
+	constexpr Vector<T, N> operator-=(const Vector<T, N>& rhs)
 	{
 		for (auto i = 0U; i < SIZE; i++)
 			this->operator[](i) -= rhs[i];
 		return *this;
 	}
 
-	Vector<T, N> operator*=(const T& rhs)
+	constexpr Vector<T, N> operator*=(const T& rhs)
 	{
 		for (auto i = 0U; i < SIZE; i++)
 			this->operator[](i) *= rhs;
@@ -65,25 +65,25 @@ struct Vector : public std::array<T, N> {
 };
 
 template <class T, std::size_t N>
-Vector<T, N> operator+(Vector<T, N> lhs, const Vector<T, N>& rhs)
+constexpr Vector<T, N> operator+(Vector<T, N> lhs, const Vector<T, N>& rhs)
 {
 	return lhs += rhs;
 }
 
 template <class T, std::size_t N>
-Vector<T, N> operator-(Vector<T, N> lhs, const Vector<T, N>& rhs)
+constexpr Vector<T, N> operator-(Vector<T, N> lhs, const Vector<T, N>& rhs)
 {
 	return lhs -= rhs;
 }
 
 template <class T, std::size_t N>
-Vector<T, N> operator*(Vector<T, N> lhs, const T& rhs)
+constexpr Vector<T, N> operator*(Vector<T, N> lhs, const T& rhs)
 {
 	return lhs *= rhs;
 }
 
 template <class T, std::size_t N>
-Vector<T, N> operator*(const T& lhs, Vector<T, N> rhs)
+constexpr Vector<T, N> operator*(const T& lhs, Vector<T, N> rhs)
 {
 	return rhs *= lhs;
 }
