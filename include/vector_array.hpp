@@ -48,12 +48,25 @@ struct Vector : public std::array<T, N> {
 		return *this;
 	}
 
+	Vector<T, N> operator-=(const Vector<T, N>& rhs)
+	{
+		for (auto i = 0U; i < SIZE; i++)
+			this->operator[](i) -= rhs[i];
+		return *this;
+	}
+
 };
 
 template <class T, std::size_t N>
 Vector<T, N> operator+(Vector<T, N> lhs, const Vector<T, N>& rhs)
 {
-	return lhs+= rhs;
+	return lhs += rhs;
+}
+
+template <class T, std::size_t N>
+Vector<T, N> operator-(Vector<T, N> lhs, const Vector<T, N>& rhs)
+{
+	return lhs -= rhs;
 }
 
 }
