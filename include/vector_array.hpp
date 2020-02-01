@@ -62,6 +62,16 @@ struct Vector : public std::array<T, N> {
 		return *this;
 	}
 
+	constexpr const Vector<T, N>& operator+() const
+	{
+		return *this;
+	}
+
+	constexpr Vector<T, N> operator-() const
+	{
+		return *this * -1;
+	}
+
 };
 
 template <class T, std::size_t N>

@@ -571,7 +571,15 @@ bool vcn_size_constant()
 	&& MisterEggnog::Vector<int, 8>::SIZE == 8;
 }
 
-#define TEST_NUMBER 21
+bool vcn_sign_ops()
+{
+	vec4 vc1{number_range(random_eng), number_range(random_eng), number_range(random_eng)};
+	auto vc2(+vc1);
+	auto vc3(-vc1);
+	return vc1 == vc2 && (vc1 * -1) == vc3;
+}
+
+#define TEST_NUMBER 22
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -603,6 +611,7 @@ int main()
 		"vcn * op",
 		"vcn noexcept",
 		"vcn size const",
+		"vcn \"sign\" ops",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -629,6 +638,7 @@ int main()
 		vcn_multi_op,
 		noexcept_vcn,
 		vcn_size_constant,
+		vcn_sign_ops,
 	};
 
 	int success_count = 0;
