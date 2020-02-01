@@ -33,7 +33,6 @@ template <class T, std::size_t N>
 struct Vector : public std::array<T, N> {
 
 	static constexpr std::size_t SIZE = N;
-	using scalar = T;
 
 	constexpr Vector() noexcept(std::is_nothrow_default_constructible<std::array<T, N>>()) = default;
 	constexpr Vector(const Vector&) noexcept(std::is_nothrow_copy_constructible<std::array<T, N>>()) = default;
