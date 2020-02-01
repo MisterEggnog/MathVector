@@ -564,7 +564,14 @@ bool noexcept_vcn()
 		&& !std::is_nothrow_move_assignable<MisterEggnog::Vector<throwable, 2>>();
 }
 
-#define TEST_NUMBER 20
+bool vcn_size_constant()
+{
+	return MisterEggnog::Vector<int, 2>::SIZE == 2
+	&& MisterEggnog::Vector<int, 4>::SIZE == 4
+	&& MisterEggnog::Vector<int, 8>::SIZE == 8;
+}
+
+#define TEST_NUMBER 21
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -595,6 +602,7 @@ int main()
 		"vcn - op",
 		"vcn * op",
 		"vcn noexcept",
+		"vcn size const",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -620,6 +628,7 @@ int main()
 		vcn_sub_op,
 		vcn_multi_op,
 		noexcept_vcn,
+		vcn_size_constant,
 	};
 
 	int success_count = 0;
