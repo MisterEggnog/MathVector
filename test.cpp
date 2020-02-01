@@ -397,7 +397,7 @@ bool vc3_sign_ops()
 
 typedef MisterEggnog::Vector<int, 4> vec4;
 
-bool vc3_add_op()
+bool vcn_add_op()
 {
 	// +=
 	{
@@ -444,7 +444,7 @@ bool vc3_add_op()
 	return true;
 }
 
-bool vc3_sub_op()
+bool vcn_sub_op()
 {
 	// -=
 	{
@@ -491,7 +491,7 @@ bool vc3_sub_op()
 	return true;
 }
 
-bool vc3_multi_op()
+bool vcn_multi_op()
 {
 	// *=
 	{
@@ -616,9 +616,9 @@ int main()
 		vc3_size_constant,
 		vc3_sign_ops,
 		// vc
-		vc3_add_op,
-		vc3_sub_op,
-		vc3_multi_op,
+		vcn_add_op,
+		vcn_sub_op,
+		vcn_multi_op,
 		noexcept_vcn,
 	};
 
