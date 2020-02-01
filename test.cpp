@@ -579,7 +579,28 @@ bool vcn_sign_ops()
 	return vc1 == vc2 && (vc1 * -1) == vc3;
 }
 
-#define TEST_NUMBER 22
+/////////////////////////////////////////////////////////////////////
+// Vector functions
+/////////////////////////////////////////////////////////////////////
+
+bool dot_product()
+{
+	int x = number_range(random_eng);
+	int y = number_range(random_eng);
+	int z = number_range(random_eng);
+	int u = number_range(random_eng);
+	int v = number_range(random_eng);
+	int w = number_range(random_eng);
+	auto vc1 = MisterEggnog::Vector3(x, y, z);
+	auto vc2 = MisterEggnog::Vector3(u, v, w);
+
+	int d   = x*u + y*v + z*w;
+	int vcd = MisterEggnog::dot_product(vc1, vc2);
+
+	return d == vcd;
+}
+
+#define TEST_NUMBER 23
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -612,6 +633,8 @@ int main()
 		"vcn noexcept",
 		"vcn size const",
 		"vcn \"sign\" ops",
+		// vc fns
+		"dot product",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -639,6 +662,8 @@ int main()
 		noexcept_vcn,
 		vcn_size_constant,
 		vcn_sign_ops,
+		// vc fns
+		dot_product,
 	};
 
 	int success_count = 0;
