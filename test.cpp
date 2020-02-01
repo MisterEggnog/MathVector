@@ -24,6 +24,7 @@ SOFTWARE.
 #include "include/vector2.hpp"
 #include "include/vector3.hpp"
 #include "include/vector_array.hpp"
+#include "include/vector_functions.hpp"
 #include <cstdio>
 #include <cmath>
 #include <limits>
@@ -546,7 +547,24 @@ bool vc3_multi_op()
 	return true;
 }
 
-#define TEST_NUMBER 19
+bool noexcept_vcn()
+{
+	struct throwable {
+		throwable();
+		throwable(const throwable&);
+		throwable(throwable&&);
+		throwable& operator=(const throwable&);
+		throwable& operator=(throwable&&);
+	};
+
+	return !std::is_nothrow_default_constructible<MisterEggnog::Vector<throwable, 2>>()
+		&& !std::is_nothrow_copy_constructible<MisterEggnog::Vector<throwable, 2>>()
+		&& !std::is_nothrow_move_constructible<MisterEggnog::Vector<throwable, 2>>()
+		&& !std::is_nothrow_copy_assignable<MisterEggnog::Vector<throwable, 2>>()
+		&& !std::is_nothrow_move_assignable<MisterEggnog::Vector<throwable, 2>>();
+}
+
+#define TEST_NUMBER 20
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -576,6 +594,7 @@ int main()
 		"vcn + op",
 		"vcn - op",
 		"vcn * op",
+		"vcn noexcept",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -600,6 +619,7 @@ int main()
 		vc3_add_op,
 		vc3_sub_op,
 		vc3_multi_op,
+		noexcept_vcn,
 	};
 
 	int success_count = 0;
