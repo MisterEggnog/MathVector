@@ -38,6 +38,27 @@ constexpr auto dot_product(const T& lhs, const T& rhs)
 	return accumulated_val;
 }
 
+// Vector 2 magnitude using hypot fn
+template <class T, class F, typename std::enable_if_t<T::SIZE == 2, int> = 0>
+constexpr auto magnitude(const T& vc, const F& func)
+{
+	return func(vc[0], vc[1]);
+}
+
+// Vector 3 magnitude using 3 dimensional hypot fn
+template <class T, class F, typename std::enable_if_t<T::SIZE == 3, int> = 0>
+constexpr auto magnitude(const T& vc, const F& func)
+{
+	return func(vc[0], vc[1], vc[2]);
+}
+
+// General case magnitude uses sqrt
+template <class T, class F>
+constexpr auto magnitude(const T& vc, const F& func)
+{
+	return func(dot_product(vc, vc));
+}
+
 }
 
 #endif // MATHVECTOR_INCLUDE_MISTEREGGNOG_VECTOR_FUNCTIONS_HPP_INCLUDED
