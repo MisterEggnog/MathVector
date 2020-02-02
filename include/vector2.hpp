@@ -33,6 +33,7 @@ struct Vector2 {
 	T x, y;
 
 	static constexpr std::size_t SIZE = 2;
+	using scalar = T;
 
 	constexpr Vector2() noexcept(std::is_nothrow_default_constructible<T>()) = default;
 	constexpr Vector2(const Vector2&) noexcept(std::is_nothrow_copy_constructible<T>()) = default;

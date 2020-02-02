@@ -25,27 +25,14 @@ SOFTWARE.
 #define MATHVECTOR_INCLUDE_MISTEREGGNOG_VECTOR_FUNCTIONS_HPP_INCLUDED
 
 #include <cassert>
-#include <cstdio>
 #include <type_traits>
 
 namespace MisterEggnog {
 
-// I can't determine a way to verify that this class exists, so I'm just
-// going to test _cplusplus is set to c++20.
-// This will not work with all compilers.
-#if __cpluplus < 201902L
-template <class T>
-struct rm_cvref {
-	typedef typename std::remove_cv<typename std::remove_reference<T>::type>::type type;
-};
-#else
-using std::remove_cvref;
-#endif
-
 template <class T>
 constexpr auto dot_product(const T& lhs, const T& rhs)
 {
-	typename rm_cvref<decltype(lhs[0])>::type accumulated_val = 0;
+	typename T::scalar accumulated_val = 0;
 	for (auto i = 0U; i < T::SIZE; i++)
 		accumulated_val += lhs[i] * rhs[i];
 	return accumulated_val;
