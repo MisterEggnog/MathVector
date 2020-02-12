@@ -40,7 +40,7 @@ constexpr auto dot_product(const T& lhs, const T& rhs)
 
 // Vector 2 magnitude using hypot fn
 template <class T, class F, typename std::enable_if_t<T::SIZE == 2, int> = 0>
-constexpr auto magnitude(const T& vc, const F& func)
+constexpr auto magnitude(const T& vc, F func)
 {
 	return func(vc[0], vc[1]);
 }
@@ -53,7 +53,7 @@ constexpr auto magnitude(const T& vc, const F& func)
 }
 
 // General case magnitude uses sqrt
-template <class T, class F>
+template <class T, class F, typename std::enable_if_t<T::SIZE >= 4, int> = 0>
 constexpr auto magnitude(const T& vc, const F& func)
 {
 	return func(dot_product(vc, vc));

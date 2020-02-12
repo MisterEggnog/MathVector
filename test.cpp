@@ -600,7 +600,36 @@ bool dot_product()
 	return d == vcd;
 }
 
-#define TEST_NUMBER 23
+struct Magn {
+	double operator()(double x, double y)
+	{
+		return std::hypot(x, y);
+	}
+
+	double operator()(double x, double y, double z)
+	{
+		return std::hypot(x, y, z);
+	}
+
+	double operator()(double dot_prod)
+	{
+		return std::sqrt(dot_prod);
+	}
+};
+
+bool magn_2()
+{
+	auto x = float_number_range(random_eng);
+	auto y = float_number_range(random_eng);
+	auto vc1 = MisterEggnog::Vector2(x, y);
+	Magn magn;
+	auto magn_hyp = std::hypot(x, y);
+	auto magn_vc = MisterEggnog::magnitude(vc1, magn);
+
+	return magn_hyp == magn_vc;
+}
+
+#define TEST_NUMBER 24
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -635,6 +664,7 @@ int main()
 		"vcn \"sign\" ops",
 		// vc fns
 		"dot product",
+		"|vc2|",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -664,6 +694,7 @@ int main()
 		vcn_sign_ops,
 		// vc fns
 		dot_product,
+		magn_2,
 	};
 
 	int success_count = 0;
