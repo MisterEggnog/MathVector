@@ -642,7 +642,21 @@ bool magn_3_17()
 	return magn_hyp == magn_vc;
 }
 
-#define TEST_NUMBER 25
+bool magn_n_17()
+{
+	auto x = float_number_range(random_eng);
+	auto y = float_number_range(random_eng);
+	auto z = float_number_range(random_eng);
+	auto w = float_number_range(random_eng);
+	MisterEggnog::Vector<double, 4> vc1{x, y, z, w};
+	Magn magn;
+	auto magn_hyp = std::sqrt(x*x + y*y +  z*z + w*w);
+	auto magn_vc = MisterEggnog::magnitude(vc1, magn);
+
+	return magn_hyp == magn_vc;
+}
+
+#define TEST_NUMBER 26
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -679,6 +693,7 @@ int main()
 		"dot product",
 		"|vc2| stdc++17",
 		"|vc3| stdc++17",
+		"|vcn| stdc++17",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -710,6 +725,7 @@ int main()
 		dot_product,
 		magn_2_17,
 		magn_3_17,
+		magn_n_17,
 	};
 
 	int success_count = 0;
