@@ -617,7 +617,7 @@ struct Magn {
 	}
 };
 
-bool magn_2()
+bool magn_2_17()
 {
 	auto x = float_number_range(random_eng);
 	auto y = float_number_range(random_eng);
@@ -629,7 +629,20 @@ bool magn_2()
 	return magn_hyp == magn_vc;
 }
 
-#define TEST_NUMBER 24
+bool magn_3_17()
+{
+	auto x = float_number_range(random_eng);
+	auto y = float_number_range(random_eng);
+	auto z = float_number_range(random_eng);
+	auto vc1 = MisterEggnog::Vector3(x, y, z);
+	Magn magn;
+	auto magn_hyp = std::hypot(x, y, z);
+	auto magn_vc = MisterEggnog::magnitude(vc1, magn);
+
+	return magn_hyp == magn_vc;
+}
+
+#define TEST_NUMBER 25
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -664,7 +677,8 @@ int main()
 		"vcn \"sign\" ops",
 		// vc fns
 		"dot product",
-		"|vc2|",
+		"|vc2| stdc++17",
+		"|vc3| stdc++17",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -694,7 +708,8 @@ int main()
 		vcn_sign_ops,
 		// vc fns
 		dot_product,
-		magn_2,
+		magn_2_17,
+		magn_3_17,
 	};
 
 	int success_count = 0;

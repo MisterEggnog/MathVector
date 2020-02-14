@@ -47,14 +47,14 @@ constexpr auto magnitude(const T& vc, F func)
 
 // Vector 3 magnitude using 3 dimensional hypot fn
 template <class T, class F, typename std::enable_if_t<T::SIZE == 3, int> = 0>
-constexpr auto magnitude(const T& vc, const F& func)
+constexpr auto magnitude(const T& vc, F func)
 {
 	return func(vc[0], vc[1], vc[2]);
 }
 
 // General case magnitude uses sqrt
 template <class T, class F, typename std::enable_if_t<T::SIZE >= 4, int> = 0>
-constexpr auto magnitude(const T& vc, const F& func)
+constexpr auto magnitude(const T& vc, F func)
 {
 	return func(dot_product(vc, vc));
 }
