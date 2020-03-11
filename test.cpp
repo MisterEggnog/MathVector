@@ -656,7 +656,23 @@ bool magn_n_17()
 	return magn_hyp == magn_vc;
 }
 
-#define TEST_NUMBER 26
+bool unit_vector()
+{
+	auto x = float_number_range(random_eng);
+	auto y = float_number_range(random_eng);
+	auto z = float_number_range(random_eng);
+	auto vc1 = MisterEggnog::Vector3(x, y, z);
+	Magn magn;
+	auto vc2 = unit_vector(vc1, magn);
+	auto modifier = 1 / std::hypot(x, y, z);
+	x *= modifier;
+	y *= modifier;
+	z *= modifier;
+
+	return vc2.x == x && vc2.y == y && vc2.z == z;
+}
+
+#define TEST_NUMBER 27
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -694,6 +710,7 @@ int main()
 		"|vc2| stdc++17",
 		"|vc3| stdc++17",
 		"|vcn| stdc++17",
+		"unit vector",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -726,7 +743,10 @@ int main()
 		magn_2_17,
 		magn_3_17,
 		magn_n_17,
+		unit_vector,
 	};
+
+	printf("No certainty this is correct.\n");
 
 	int success_count = 0;
 	for (int i = 0; i < TEST_NUMBER; i++) {

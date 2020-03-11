@@ -59,6 +59,12 @@ constexpr auto magnitude(const T& vc, F func)
 	return func(dot_product(vc, vc));
 }
 
+template <class T, class F>
+constexpr T unit_vector(const T& vc, F func)
+{
+	return vc * (1 / magnitude(vc, func));
+}
+
 }
 
 #endif // MATHVECTOR_INCLUDE_MISTEREGGNOG_VECTOR_FUNCTIONS_HPP_INCLUDED
