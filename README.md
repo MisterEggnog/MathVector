@@ -10,13 +10,13 @@ It has been tested with gcc & clang.
 ```cpp
 #include <Vector2.hpp>
 ```
-To accesss the members you can use either array notation or by member access, with the members `x` & `y`.
+To accesses the members you can use either array notation or by member access, with the members `x` & `y`.
 
 ## Vector3
 ```cpp
 #include <Vector3.hpp>
 ```
-To accesss the members you can use either array notation or by member access, with the members `x`, `y`, & `z`.
+To accesses the members you can use either array notation or by member access, with the members `x`, `y`, & `z`.
 
 ## Vector Array
 ```cpp
@@ -29,7 +29,7 @@ Also, since this is derived from `std::array`, you can use >, <, >=, <=, & itera
 ```cpp
 #include <vector_functions.hpp>
 ```
-Theres not a lot here but I included a few fuctions I use frequently.
+There's not a lot here but I included a few functions I use frequently.
 
 ```cpp
 constexpr auto magnitude(const T& vc, F func)
@@ -41,7 +41,7 @@ Currently the functions F must support depend on the size of `vc`.
 * If `vc` is any other size, F must have an overload for only one scalar value, this one is just square root.
 
 You can find these in `cmath`.
-Unfortunantly I cannot find a way around this with c++17.
+Unfortunately I cannot find a way around this with c++17.
 
 ```cpp
 constexpr T unit_vector(const T& vc, F func)
