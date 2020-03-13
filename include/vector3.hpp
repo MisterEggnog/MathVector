@@ -26,7 +26,7 @@ SOFTWARE.
 #include <cassert>
 #include <type_traits>
 
-namespace MisterEggnog {
+namespace MathVector {
 
 template <class T>
 struct Vector3 {

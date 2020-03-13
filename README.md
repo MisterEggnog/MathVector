@@ -2,6 +2,7 @@
 ## Overview
 This library provides low weight vector objects that support vector addition & scalar multiplication.
 There are implementations for two space vectors, three space vectors, & a template length vector.
+All of these classes & functions are located in the namespace MathVector.
 
 Note, this library requires c++17.
 It has been tested with gcc & clang.

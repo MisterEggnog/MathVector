@@ -48,8 +48,8 @@ bool add2_op()
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
 		int w = number_range(random_eng);
-		auto vc1 = MisterEggnog::Vector2(x, y);
-		auto vc2 = MisterEggnog::Vector2(z, w);
+		auto vc1 = MathVector::Vector2(x, y);
+		auto vc2 = MathVector::Vector2(z, w);
 		x   += z;
 		y   += w;
 		vc1 += vc2;
@@ -63,8 +63,8 @@ bool add2_op()
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
 		int w = number_range(random_eng);
-		auto vc1 = MisterEggnog::Vector2(x, y);
-		auto vc2 = MisterEggnog::Vector2(z, w);
+		auto vc1 = MathVector::Vector2(x, y);
+		auto vc2 = MathVector::Vector2(z, w);
 		auto vc3 = vc1 + vc2;
 		x += z;
 		y += w;
@@ -83,8 +83,8 @@ bool minus2_op()
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
 		int w = number_range(random_eng);
-		auto vc1 = MisterEggnog::Vector2(x, y);
-		auto vc2 = MisterEggnog::Vector2(z, w);
+		auto vc1 = MathVector::Vector2(x, y);
+		auto vc2 = MathVector::Vector2(z, w);
 		x   -= z;
 		y   -= w;
 		vc1 -= vc2;
@@ -98,8 +98,8 @@ bool minus2_op()
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
 		int w = number_range(random_eng);
-		auto vc1 = MisterEggnog::Vector2(x, y);
-		auto vc2 = MisterEggnog::Vector2(z, w);
+		auto vc1 = MathVector::Vector2(x, y);
+		auto vc2 = MathVector::Vector2(z, w);
 		auto vc3 = vc1 - vc2;
 		x -= z;
 		y -= w;
@@ -117,7 +117,7 @@ bool multi2_op()
 		int x = number_range(random_eng);
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
-		auto vc = MisterEggnog::Vector2(x, y);
+		auto vc = MathVector::Vector2(x, y);
 		x  *= z;
 		y  *= z;
 		vc *= z;
@@ -130,7 +130,7 @@ bool multi2_op()
 		int x = number_range(random_eng);
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
-		auto vc = MisterEggnog::Vector2(x, y);
+		auto vc = MathVector::Vector2(x, y);
 		x  *= z;
 		y  *= z;
 		auto vc2 = vc * z;
@@ -143,7 +143,7 @@ bool multi2_op()
 		int x = number_range(random_eng);
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
-		auto vc = MisterEggnog::Vector2(x, y);
+		auto vc = MathVector::Vector2(x, y);
 		x  *= z;
 		y  *= z;
 		auto vc2 = z * vc;
@@ -164,17 +164,17 @@ bool noexcept_vc2()
 		throwable& operator=(throwable&&);
 	};
 
-	return !std::is_nothrow_default_constructible<MisterEggnog::Vector2<throwable>>()
-		&& !std::is_nothrow_copy_constructible<MisterEggnog::Vector2<throwable>>()
-		&& !std::is_nothrow_move_constructible<MisterEggnog::Vector2<throwable>>()
-		&& !std::is_nothrow_copy_assignable<MisterEggnog::Vector2<throwable>>()
-		&& !std::is_nothrow_move_assignable<MisterEggnog::Vector2<throwable>>();
+	return !std::is_nothrow_default_constructible<MathVector::Vector2<throwable>>()
+		&& !std::is_nothrow_copy_constructible<MathVector::Vector2<throwable>>()
+		&& !std::is_nothrow_move_constructible<MathVector::Vector2<throwable>>()
+		&& !std::is_nothrow_copy_assignable<MathVector::Vector2<throwable>>()
+		&& !std::is_nothrow_move_assignable<MathVector::Vector2<throwable>>();
 }
 
 bool comparision_vc2()
 {
-	auto vc1 = MisterEggnog::Vector2(number_range(random_eng), number_range(random_eng));
-	auto vc2 = MisterEggnog::Vector2(number_range(random_eng), number_range(random_eng));
+	auto vc1 = MathVector::Vector2(number_range(random_eng), number_range(random_eng));
+	auto vc2 = MathVector::Vector2(number_range(random_eng), number_range(random_eng));
 	auto vc3(vc1);
 	return vc1 != vc2 && vc1 == vc3;
 }
@@ -183,7 +183,7 @@ bool vc2_array_access()
 {
 	int x = number_range(random_eng);
 	int y = number_range(random_eng);
-	MisterEggnog::Vector2<int> vc;
+	MathVector::Vector2<int> vc;
 	vc[0] = x;
 	vc[1] = y;
 	return vc[0] == x && vc[1] == y;
@@ -191,12 +191,12 @@ bool vc2_array_access()
 
 bool vc2_size_constant()
 {
-	return MisterEggnog::Vector2<int>::SIZE == 2;
+	return MathVector::Vector2<int>::SIZE == 2;
 }
 
 bool vc2_sign_ops()
 {
-	auto vc1 = MisterEggnog::Vector2(number_range(random_eng), number_range(random_eng));
+	auto vc1 = MathVector::Vector2(number_range(random_eng), number_range(random_eng));
 	auto vc2(+vc1);
 	auto vc3(-vc1);
 	return vc1 == vc2 && (vc1 * -1) == vc3;
@@ -216,8 +216,8 @@ bool add3_op()
 		int u = number_range(random_eng);
 		int v = number_range(random_eng);
 		int w = number_range(random_eng);
-		auto vc1 = MisterEggnog::Vector3(x, y, z);
-		auto vc2 = MisterEggnog::Vector3(u, v, w);
+		auto vc1 = MathVector::Vector3(x, y, z);
+		auto vc2 = MathVector::Vector3(u, v, w);
 		x   += u;
 		y   += v;
 		z   += w;
@@ -234,8 +234,8 @@ bool add3_op()
 		int u = number_range(random_eng);
 		int v = number_range(random_eng);
 		int w = number_range(random_eng);
-		auto vc1 = MisterEggnog::Vector3(x, y, z);
-		auto vc2 = MisterEggnog::Vector3(u, v, w);
+		auto vc1 = MathVector::Vector3(x, y, z);
+		auto vc2 = MathVector::Vector3(u, v, w);
 		auto vc3 = (vc1 + vc2);
 		x   += u;
 		y   += v;
@@ -257,8 +257,8 @@ bool minus3_op()
 		int u = number_range(random_eng);
 		int v = number_range(random_eng);
 		int w = number_range(random_eng);
-		auto vc1 = MisterEggnog::Vector3(x, y, z);
-		auto vc2 = MisterEggnog::Vector3(u, v, w);
+		auto vc1 = MathVector::Vector3(x, y, z);
+		auto vc2 = MathVector::Vector3(u, v, w);
 		x   -= u;
 		y   -= v;
 		z   -= w;
@@ -275,8 +275,8 @@ bool minus3_op()
 		int u = number_range(random_eng);
 		int v = number_range(random_eng);
 		int w = number_range(random_eng);
-		auto vc1 = MisterEggnog::Vector3(x, y, z);
-		auto vc2 = MisterEggnog::Vector3(u, v, w);
+		auto vc1 = MathVector::Vector3(x, y, z);
+		auto vc2 = MathVector::Vector3(u, v, w);
 		auto vc3 = (vc1 - vc2);
 		x   -= u;
 		y   -= v;
@@ -296,7 +296,7 @@ bool multi3_op()
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
 		int u = number_range(random_eng);
-		auto vc = MisterEggnog::Vector3(x, y, z);
+		auto vc = MathVector::Vector3(x, y, z);
 		x  *= u;
 		y  *= u;
 		z  *= u;
@@ -312,7 +312,7 @@ bool multi3_op()
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
 		int u = number_range(random_eng);
-		auto vc1 = MisterEggnog::Vector3(x, y, z);
+		auto vc1 = MathVector::Vector3(x, y, z);
 		auto vc2 = vc1 * u;
 		x  *= u;
 		y  *= u;
@@ -328,7 +328,7 @@ bool multi3_op()
 		int y = number_range(random_eng);
 		int z = number_range(random_eng);
 		int u = number_range(random_eng);
-		auto vc1 = MisterEggnog::Vector3(x, y, z);
+		auto vc1 = MathVector::Vector3(x, y, z);
 		auto vc2 = u * vc1;
 		x  *= u;
 		y  *= u;
@@ -351,17 +351,17 @@ bool vc3_noexcept()
 		throwable& operator=(throwable&&);
 	};
 
-	return !std::is_nothrow_default_constructible<MisterEggnog::Vector3<throwable>>()
-		&& !std::is_nothrow_copy_constructible<MisterEggnog::Vector3<throwable>>()
-		&& !std::is_nothrow_move_constructible<MisterEggnog::Vector3<throwable>>()
-		&& !std::is_nothrow_copy_assignable<MisterEggnog::Vector3<throwable>>()
-		&& !std::is_nothrow_move_assignable<MisterEggnog::Vector3<throwable>>();
+	return !std::is_nothrow_default_constructible<MathVector::Vector3<throwable>>()
+		&& !std::is_nothrow_copy_constructible<MathVector::Vector3<throwable>>()
+		&& !std::is_nothrow_move_constructible<MathVector::Vector3<throwable>>()
+		&& !std::is_nothrow_copy_assignable<MathVector::Vector3<throwable>>()
+		&& !std::is_nothrow_move_assignable<MathVector::Vector3<throwable>>();
 }
 
 bool comparision_vc3()
 {
-	auto vc1 = MisterEggnog::Vector3(number_range(random_eng), number_range(random_eng), number_range(random_eng));
-	auto vc2 = MisterEggnog::Vector3(number_range(random_eng), number_range(random_eng), number_range(random_eng));
+	auto vc1 = MathVector::Vector3(number_range(random_eng), number_range(random_eng), number_range(random_eng));
+	auto vc2 = MathVector::Vector3(number_range(random_eng), number_range(random_eng), number_range(random_eng));
 	auto vc3(vc1);
 	return vc1 != vc2 && vc1 == vc3;
 }
@@ -371,7 +371,7 @@ bool vc3_array_access()
 	int x = number_range(random_eng);
 	int y = number_range(random_eng);
 	int z = number_range(random_eng);
-	MisterEggnog::Vector3<int> vc;
+	MathVector::Vector3<int> vc;
 	vc[0] = x;
 	vc[1] = y;
 	vc[2] = z;
@@ -380,12 +380,12 @@ bool vc3_array_access()
 
 bool vc3_size_constant()
 {
-	return MisterEggnog::Vector3<int>::SIZE == 3;
+	return MathVector::Vector3<int>::SIZE == 3;
 }
 
 bool vc3_sign_ops()
 {
-	auto vc1 = MisterEggnog::Vector3(number_range(random_eng), number_range(random_eng), number_range(random_eng));
+	auto vc1 = MathVector::Vector3(number_range(random_eng), number_range(random_eng), number_range(random_eng));
 	auto vc2(+vc1);
 	auto vc3(-vc1);
 	return vc1 == vc2 && (vc1 * -1) == vc3;
@@ -395,7 +395,7 @@ bool vc3_sign_ops()
 // General Length Vector
 /////////////////////////////////////////////////////////////////////
 
-typedef MisterEggnog::Vector<int, 4> vec4;
+typedef MathVector::Vector<int, 4> vec4;
 
 bool vcn_add_op()
 {
@@ -557,18 +557,18 @@ bool noexcept_vcn()
 		throwable& operator=(throwable&&);
 	};
 
-	return !std::is_nothrow_default_constructible<MisterEggnog::Vector<throwable, 2>>()
-		&& !std::is_nothrow_copy_constructible<MisterEggnog::Vector<throwable, 2>>()
-		&& !std::is_nothrow_move_constructible<MisterEggnog::Vector<throwable, 2>>()
-		&& !std::is_nothrow_copy_assignable<MisterEggnog::Vector<throwable, 2>>()
-		&& !std::is_nothrow_move_assignable<MisterEggnog::Vector<throwable, 2>>();
+	return !std::is_nothrow_default_constructible<MathVector::Vector<throwable, 2>>()
+		&& !std::is_nothrow_copy_constructible<MathVector::Vector<throwable, 2>>()
+		&& !std::is_nothrow_move_constructible<MathVector::Vector<throwable, 2>>()
+		&& !std::is_nothrow_copy_assignable<MathVector::Vector<throwable, 2>>()
+		&& !std::is_nothrow_move_assignable<MathVector::Vector<throwable, 2>>();
 }
 
 bool vcn_size_constant()
 {
-	return MisterEggnog::Vector<int, 2>::SIZE == 2
-	&& MisterEggnog::Vector<int, 4>::SIZE == 4
-	&& MisterEggnog::Vector<int, 8>::SIZE == 8;
+	return MathVector::Vector<int, 2>::SIZE == 2
+	&& MathVector::Vector<int, 4>::SIZE == 4
+	&& MathVector::Vector<int, 8>::SIZE == 8;
 }
 
 bool vcn_sign_ops()
@@ -591,11 +591,11 @@ bool dot_product()
 	int u = number_range(random_eng);
 	int v = number_range(random_eng);
 	int w = number_range(random_eng);
-	auto vc1 = MisterEggnog::Vector3(x, y, z);
-	auto vc2 = MisterEggnog::Vector3(u, v, w);
+	auto vc1 = MathVector::Vector3(x, y, z);
+	auto vc2 = MathVector::Vector3(u, v, w);
 
 	int d   = x*u + y*v + z*w;
-	int vcd = MisterEggnog::dot_product(vc1, vc2);
+	int vcd = MathVector::dot_product(vc1, vc2);
 
 	return d == vcd;
 }
@@ -621,10 +621,10 @@ bool magn_2_17()
 {
 	auto x = float_number_range(random_eng);
 	auto y = float_number_range(random_eng);
-	auto vc1 = MisterEggnog::Vector2(x, y);
+	auto vc1 = MathVector::Vector2(x, y);
 	Magn magn;
 	auto magn_hyp = std::hypot(x, y);
-	auto magn_vc = MisterEggnog::magnitude(vc1, magn);
+	auto magn_vc = MathVector::magnitude(vc1, magn);
 
 	return magn_hyp == magn_vc;
 }
@@ -634,10 +634,10 @@ bool magn_3_17()
 	auto x = float_number_range(random_eng);
 	auto y = float_number_range(random_eng);
 	auto z = float_number_range(random_eng);
-	auto vc1 = MisterEggnog::Vector3(x, y, z);
+	auto vc1 = MathVector::Vector3(x, y, z);
 	Magn magn;
 	auto magn_hyp = std::hypot(x, y, z);
-	auto magn_vc = MisterEggnog::magnitude(vc1, magn);
+	auto magn_vc = MathVector::magnitude(vc1, magn);
 
 	return magn_hyp == magn_vc;
 }
@@ -648,10 +648,10 @@ bool magn_n_17()
 	auto y = float_number_range(random_eng);
 	auto z = float_number_range(random_eng);
 	auto w = float_number_range(random_eng);
-	MisterEggnog::Vector<double, 4> vc1{x, y, z, w};
+	MathVector::Vector<double, 4> vc1{x, y, z, w};
 	Magn magn;
 	auto magn_hyp = std::sqrt(x*x + y*y +  z*z + w*w);
-	auto magn_vc = MisterEggnog::magnitude(vc1, magn);
+	auto magn_vc = MathVector::magnitude(vc1, magn);
 
 	return magn_hyp == magn_vc;
 }
@@ -661,7 +661,7 @@ bool unit_vector()
 	auto x = float_number_range(random_eng);
 	auto y = float_number_range(random_eng);
 	auto z = float_number_range(random_eng);
-	auto vc1 = MisterEggnog::Vector3(x, y, z);
+	auto vc1 = MathVector::Vector3(x, y, z);
 	Magn magn;
 	auto vc2 = unit_vector(vc1, magn);
 	auto modifier = 1 / std::hypot(x, y, z);

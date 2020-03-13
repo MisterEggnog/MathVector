@@ -27,7 +27,7 @@ SOFTWARE.
 #include <array>
 #include <type_traits>
 
-namespace MisterEggnog {
+namespace MathVector {
 
 template <class T, std::size_t N>
 struct Vector : public std::array<T, N> {

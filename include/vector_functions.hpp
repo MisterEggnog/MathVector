@@ -27,7 +27,7 @@ SOFTWARE.
 #include <cassert>
 #include <type_traits>
 
-namespace MisterEggnog {
+namespace MathVector {
 
 template <class T>
 constexpr auto dot_product(const T& lhs, const T& rhs)
