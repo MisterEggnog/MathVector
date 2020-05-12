@@ -25,6 +25,7 @@ SOFTWARE.
 #define MATHVECTOR_INCLUDE_MISTEREGGNOG_VECTOR_FUNCTIONS_HPP_INCLUDED
 
 #include <cassert>
+#include <optional>
 #include <type_traits>
 
 namespace MathVector {
@@ -59,9 +60,21 @@ constexpr auto magnitude(const T& vc, F func)
 	return func(dot_product(vc, vc));
 }
 
-template <class T, class F>
-constexpr T unit_vector(const T& vc, F func)
+template <class T>
+constexpr bool is_trivial(const T& vc)
 {
+	for (int i = 0; i < T::SIZE; i++)
+		if (vc[i] != 0)
+			return false;
+	return true;
+}
+
+template <class T, class F>
+constexpr std::optional<T> unit_vector(const T& vc, F func)
+{
+	if (is_trivial(vc))
+		return {};
+
 	return vc * (1 / magnitude(vc, func));
 }
 

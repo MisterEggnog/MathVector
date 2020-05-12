@@ -663,13 +663,28 @@ bool unit_vector()
 	auto z = float_number_range(random_eng);
 	auto vc1 = MathVector::Vector3(x, y, z);
 	Magn magn;
-	auto vc2 = unit_vector(vc1, magn);
-	auto modifier = 1 / std::hypot(x, y, z);
-	x *= modifier;
-	y *= modifier;
-	z *= modifier;
 
-	return vc2.x == x && vc2.y == y && vc2.z == z;
+	try {
+		auto vc2 = unit_vector(vc1, magn).value();
+		auto modifier = 1 / std::hypot(x, y, z);
+		x *= modifier;
+		y *= modifier;
+		z *= modifier;
+		bool fails_for_trivial = false;
+
+		try {
+			auto vc = MathVector::Vector3(0.0, 0.0, 0.0);
+			auto uc = unit_vector(vc, magn).value();
+		}
+		catch (...) {
+			fails_for_trivial = true;
+		}
+
+		return vc2.x == x && vc2.y == y && vc2.z == z && fails_for_trivial;
+	}
+	catch (...) {
+		return false;
+	}
 }
 
 #define TEST_NUMBER 27
