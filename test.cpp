@@ -687,7 +687,15 @@ bool unit_vector()
 	}
 }
 
-#define TEST_NUMBER 27
+bool trivial()
+{
+	auto nontriv = MathVector::Vector3(1, 2, 4);
+	auto triv    = MathVector::Vector3(0, 0, 0);
+
+	return is_trivial(triv) && !is_trivial(nontriv);
+}
+
+#define TEST_NUMBER 28
 #define STRING_LENGTH 18
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
@@ -726,6 +734,7 @@ int main()
 		"|vc3| stdc++17",
 		"|vcn| stdc++17",
 		"unit vector",
+		"trivial",
 	};
 	testfun func[TEST_NUMBER] = {
 		// vc2
@@ -759,6 +768,7 @@ int main()
 		magn_3_17,
 		magn_n_17,
 		unit_vector,
+		trivial,
 	};
 
 	printf("No certainty this is correct.\n");
