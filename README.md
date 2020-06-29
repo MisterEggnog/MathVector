@@ -45,10 +45,12 @@ You can find these in `cmath`.
 Unfortunately I cannot find a way around this with c++17.
 
 ```cpp
-constexpr T unit_vector(const T& vc, F func)
+constexpr std::optional<T> unit_vector(const T& vc, F func)
 ```
 This function returns a vector of length 1, pointing in the same direction of `vc`.
 `F` is under the same rules as specified in `magnitude`.
+
+If vc is trivial, this function returns no value.
 
 ```cpp
 constexpr auto dot_product(const T& lhs, const T& rhs)
